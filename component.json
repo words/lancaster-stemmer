@@ -1,0 +1,16 @@
+{
+  "name": "lancaster-stemmer",
+  "version": "0.0.1",
+  "description": "Lancaster stemming algorithm",
+  "keywords": [
+    "paice",
+    "husk",
+    "lancaster",
+    "stemmer"
+  ],
+  "repository": "wooorm/lancaster-stemmer",
+  "license": "MIT",
+  "scripts" : [
+    "index.js"
+  ]
+}
