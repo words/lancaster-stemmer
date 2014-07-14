@@ -2,12 +2,12 @@
 
 /* eslint-disable no-cond-assign */
 
-var stemmer, source, natural, paice;
+var stemmer, source, natural;
 
 stemmer = require('..');
 
 try {
-    paice = require('../node_modules/paice/paice.js');
+    require('../node_modules/paice/paice.js');
     natural = require('natural').LancasterStemmer.stem;
 } catch (error) {
     console.log(error);
