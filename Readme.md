@@ -35,7 +35,7 @@ stemmer('analytic') === stemmer('AnAlYtIc'); // true
 
 ## Other Lancaster implementations
 
-- [NaturalNode/natural](https://github.com/NaturalNode/natural) — Currently (29/6/14) contains three bugs (which I've [reported](https://github.com/NaturalNode/natural/issues/171)).
+- [NaturalNode/natural](https://github.com/NaturalNode/natural) — Currently (29/6/14) contains one bugs (which I've [reported](https://github.com/NaturalNode/natural/issues/174)).
 - [gruppler/paice.js](https://github.com/gruppler/paice.js) — Extends the native `String#`, and isn’t a node package.
 
 ## Benchmark
