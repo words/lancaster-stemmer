@@ -50,14 +50,14 @@ $ npm run benchmark
 On a MacBook Air, it runs about 636,000 op/s, which is about as fast as natural.
 
 ```
-         lancaster-stemmer — this module
-636 op/s » op/s * 1,000
+           lancaster-stemmer — this module
+  631 op/s » op/s * 1,000
 
-         natural
-611 op/s » op/s * 1,000
+           natural
+  608 op/s » op/s * 1,000
 
-         paice — If you're into extending prototypes...
-187 op/s » op/s * 1,000
+           paice — If you're into extending prototypes...
+  242 op/s » op/s * 1,000
 ```
 
 ## License
