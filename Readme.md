@@ -58,4 +58,4 @@ On a MacBook Air, it runs about 636,000 op/s, which is about as fast as natural.
 
 ## License
 
-  MIT
+MIT © Titus Wormer
