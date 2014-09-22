@@ -36,7 +36,7 @@ stemmer('analytic') === stemmer('AnAlYtIc'); // true
 
 ## Other Lancaster implementations
 
-- [NaturalNode/natural](https://github.com/NaturalNode/natural) — Currently (29/6/14) contains one bugs (which I've [reported](https://github.com/NaturalNode/natural/issues/174)).
+- [NaturalNode/natural](https://github.com/NaturalNode/natural).
 - [gruppler/paice.js](https://github.com/gruppler/paice.js) — Extends the native `String#`, and isn’t a node package.
 
 ## Benchmark
@@ -44,21 +44,20 @@ stemmer('analytic') === stemmer('AnAlYtIc'); // true
 Run the benchmark yourself:
 
 ```sh
-$ npm run install-benchmark # Just once of course.
 $ npm run benchmark
 ```
 
-On a MacBook Air, it runs about 636,000 op/s, which is about as fast as natural.
+On a MacBook Air, it runs about 641,000 op/s.
 
 ```
            lancaster-stemmer — this module
-  631 op/s » op/s * 1,000
+  641 op/s » op/s * 1,000
 
            natural
-  608 op/s » op/s * 1,000
+  477 op/s » op/s * 1,000
 
            paice — If you're into extending prototypes...
-  242 op/s » op/s * 1,000
+  212 op/s » op/s * 1,000
 ```
 
 ## License
