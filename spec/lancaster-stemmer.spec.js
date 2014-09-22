@@ -1,11 +1,20 @@
 'use strict';
 
-var stemmer, assert;
+var stemmer,
+    assert;
+
+/**
+ * Module dependencies.
+ */
 
 stemmer = require('..');
 assert = require('assert');
 
-describe('lancaster-stemmer()', function () {
+/**
+ * Unit tests.
+ */
+
+describe('lancasterStemmer(value)', function () {
     it('should be case insensitive', function () {
         assert(stemmer('analytic') === stemmer('AnAlYtIc'));
     });
