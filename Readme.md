@@ -4,14 +4,19 @@
 
 ## Installation
 
-NPM:
+npm:
 ```sh
 $ npm install lancaster-stemmer
 ```
 
-Component.js:
+Component:
 ```sh
 $ component install wooorm/lancaster-stemmer
+```
+
+Bower:
+```sh
+$ bower install lancaster-stemmer
 ```
 
 ## Usage
