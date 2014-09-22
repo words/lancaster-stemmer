@@ -1,6 +1,6 @@
 {
   "name": "lancaster-stemmer",
-  "version": "0.1.0",
+  "main": "index.js",
   "description": "Lancaster stemming algorithm",
   "license": "MIT",
   "keywords": [
