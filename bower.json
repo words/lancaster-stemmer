@@ -1,0 +1,29 @@
+{
+  "name": "lancaster-stemmer",
+  "version": "0.1.0",
+  "description": "Lancaster stemming algorithm",
+  "license": "MIT",
+  "keywords": [
+    "paice",
+    "husk",
+    "lancaster",
+    "stemmer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/lancaster-stemmer.git"
+  },
+  "authors": [
+    "Titus Wormer <tituswormer@gmail.com>"
+  ],
+  "ignore": [
+    ".*",
+    "*.log",
+    "*.md",
+    "component.json",
+    "package.json",
+    "coverage",
+    "node_modules",
+    "spec"
+  ]
+}
