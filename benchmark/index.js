@@ -1,28 +1,38 @@
 'use strict';
 
-/* eslint-disable no-cond-assign */
+var stemmer,
+    words,
+    natural;
 
-var stemmer, source, natural;
+/**
+ * Module dependencies.
+ */
 
 stemmer = require('..');
+
+/**
+ * Optional module dependencies.
+ */
 
 try {
     require('../node_modules/paice/paice.js');
     natural = require('natural').LancasterStemmer.stem;
 } catch (error) {
-    console.log(error);
-    throw new Error(
+    console.log(
         '\u001B[0;31m' +
         'The libraries needed by this benchmark could not be found. ' +
         'Please execute:\n' +
-        '\tnpm run install-benchmark\n\n' +
+        '  npm run install-benchmark\n\n' +
         '\u001B[0m'
     );
 }
 
-/* The first 100 words from Letterpress: https://github.com/atebits/Words,
- * for the letters a through j */
-source = [
+/**
+ * The first 1000 words from Letterpress:
+ *   https://github.com/atebits/Words
+ */
+
+words = [
     'aa',
     'aah',
     'aahed',
@@ -1025,41 +1035,42 @@ source = [
     'jackknifes'
 ];
 
+/**
+ * Benchmark this module.
+ */
+
 suite('lancaster-stemmer — this module', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            value;
-
-        while (value = source[++iterator]) {
-            stemmer(value);
-        }
-
-        next();
+    bench('op/s * 1,000', function () {
+        words.forEach(function (word) {
+            stemmer(word);
+        });
     });
 });
 
-suite('natural', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            value;
+/**
+ * Benchmark `natural`.
+ */
 
-        while (value = source[++iterator]) {
-            natural(value);
-        }
-
-        next();
+if (natural) {
+    suite('natural', function () {
+        bench('op/s * 1,000', function () {
+            words.forEach(function (word) {
+                natural(word);
+            });
+        });
     });
-});
+}
 
-suite('paice — If you\'re into extending prototypes...', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            value;
+/**
+ * Benchmark `paice`.
+ */
 
-        while (value = source[++iterator]) {
-            value.getStem();
-        }
-
-        next();
+if ('getStem' in String.prototype) {
+    suite('paice — If you\'re into extending prototypes...', function () {
+        bench('op/s * 1,000', function () {
+            words.forEach(function (word) {
+                word.getStem();
+            });
+        });
     });
-});
+}
