@@ -1,9 +1,5 @@
 # lancaster-stemmer [![Build Status](https://travis-ci.org/wooorm/lancaster-stemmer.svg?branch=master)](https://travis-ci.org/wooorm/lancaster-stemmer) [![Coverage Status](https://img.shields.io/coveralls/wooorm/lancaster-stemmer.svg)](https://coveralls.io/r/wooorm/lancaster-stemmer?branch=master)
 
-[![browser support](https://ci.testling.com/wooorm/lancaster-stemmer.png) ](https://ci.testling.com/wooorm/lancaster-stemmer)
-
----
-
 [Lancaster stemming algorithm](http://www.comp.lancs.ac.uk/computing/research/stemming/index.htm), originally designed by Chris Paice with the assistance of Gareth Husk, in JavaScript.
 
 ## Installation
