@@ -1,12 +1,25 @@
 'use strict';
 
-var STOP, INTACT, CONTINUE, PROTECT, rules, vowels;
+var STOP,
+    INTACT,
+    CONTINUE,
+    PROTECT,
+    rules,
+    EXPRESSION_VOWELS;
+
+/**
+ * Constants.
+ */
 
 STOP = -1;
 INTACT = 0;
 CONTINUE = 1;
 PROTECT = 2;
-vowels = /[aeiouy]/;
+EXPRESSION_VOWELS = /[aeiouy]/;
+
+/**
+ * Rules.
+ */
 
 rules = {
     'a' : [
@@ -633,14 +646,34 @@ rules = {
     ]
 };
 
+/**
+ * Detect if a value is acceptable to return, or should
+ * be stemmed further.
+ *
+ * @param {string} value - Input.
+ * @return {boolean} Whether the input is acceptable.
+ */
+
 function isAcceptable(value) {
-    return vowels.test(value.charAt(0)) ?
+    return EXPRESSION_VOWELS.test(value.charAt(0)) ?
         value.length > 1 :
-        value.length > 2 && vowels.test(value);
+        value.length > 2 && EXPRESSION_VOWELS.test(value);
 }
 
+/**
+ * Apply rules to a value.
+ *
+ * @param {string} value - Value to stem.
+ * @param {boolean} isIntact - Whether the input is unchanged.
+ * @return {string} stem according to Lancaster.
+ */
+
 function applyRules(value, isIntact) {
-    var ruleset, iterator, rule, next, breakpoint;
+    var ruleset,
+        index,
+        rule,
+        next,
+        breakpoint;
 
     ruleset = rules[value.charAt(value.length - 1)];
 
@@ -648,16 +681,19 @@ function applyRules(value, isIntact) {
         return value;
     }
 
-    iterator = -1;
+    index = -1;
 
-    while (rule = ruleset[++iterator]) {
+    while (rule = ruleset[++index]) {
         if (!isIntact && rule.type === INTACT) {
             continue;
         }
 
         breakpoint = value.length - rule.match.length;
 
-        if (breakpoint < 0 || value.substr(breakpoint) !== rule.match) {
+        if (
+            breakpoint < 0 ||
+            value.substr(breakpoint) !== rule.match
+        ) {
             continue;
         }
 
@@ -681,8 +717,19 @@ function applyRules(value, isIntact) {
     return value;
 }
 
+/**
+ * Stem a value.
+ *
+ * @param {string} value - Value to stem.
+ * @return {string} stem according to Lancaster.
+ */
+
 function lancasterStemmer(value) {
     return applyRules(String(value).toLowerCase(), true);
 }
+
+/**
+ * Expose `lancasterStemmer`.
+ */
 
 module.exports = lancasterStemmer;
