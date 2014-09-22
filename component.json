@@ -2,6 +2,7 @@
   "name": "lancaster-stemmer",
   "version": "0.1.0",
   "description": "Lancaster stemming algorithm",
+  "license": "MIT",
   "keywords": [
     "paice",
     "husk",
@@ -9,7 +10,6 @@
     "stemmer"
   ],
   "repository": "wooorm/lancaster-stemmer",
-  "license": "MIT",
   "scripts" : [
     "index.js"
   ]

@@ -2,6 +2,7 @@
   "name": "lancaster-stemmer",
   "version": "0.1.0",
   "description": "Lancaster stemming algorithm",
+  "license": "MIT",
   "keywords": [
     "paice",
     "husk",
@@ -9,7 +10,6 @@
     "stemmer"
   ],
   "author": "Titus Wormer <tituswormer@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
     "eslint": "^0.8.0",
     "istanbul": "^0.3.0",
