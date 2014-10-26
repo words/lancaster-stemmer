@@ -22,626 +22,626 @@ EXPRESSION_VOWELS = /[aeiouy]/;
  */
 
 rules = {
-    'a' : [
+    'a': [
         {
-            'match' : 'ia',
-            'replacement' : '',
-            'type' : INTACT
+            'match': 'ia',
+            'replacement': '',
+            'type': INTACT
         },
         {
-            'match' : 'a',
-            'replacement' : '',
-            'type' : INTACT
+            'match': 'a',
+            'replacement': '',
+            'type': INTACT
         }
     ],
-    'b' : [
+    'b': [
         {
-            'match' : 'bb',
-            'replacement' : 'b',
-            'type' : STOP
+            'match': 'bb',
+            'replacement': 'b',
+            'type': STOP
         }
     ],
-    'c' : [
+    'c': [
         {
-            'match' : 'ytic',
-            'replacement' : 'ys',
-            'type' : STOP
+            'match': 'ytic',
+            'replacement': 'ys',
+            'type': STOP
         },
         {
-            'match' : 'ic',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ic',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'nc',
-            'replacement' : 'nt',
-            'type' : CONTINUE
+            'match': 'nc',
+            'replacement': 'nt',
+            'type': CONTINUE
         }
     ],
-    'd' : [
+    'd': [
         {
-            'match' : 'dd',
-            'replacement' : 'd',
-            'type' : STOP
+            'match': 'dd',
+            'replacement': 'd',
+            'type': STOP
         },
         {
-            'match' : 'ied',
-            'replacement' : 'y',
-            'type' : CONTINUE
+            'match': 'ied',
+            'replacement': 'y',
+            'type': CONTINUE
         },
         {
-            'match' : 'ceed',
-            'replacement' : 'cess',
-            'type' : STOP
+            'match': 'ceed',
+            'replacement': 'cess',
+            'type': STOP
         },
         {
-            'match' : 'eed',
-            'replacement' : 'ee',
-            'type' : STOP
+            'match': 'eed',
+            'replacement': 'ee',
+            'type': STOP
         },
         {
-            'match' : 'ed',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ed',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'hood',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'hood',
+            'replacement': '',
+            'type': CONTINUE
         }
     ],
-    'e' : [
+    'e': [
         {
-            'match' : 'e',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'e',
+            'replacement': '',
+            'type': CONTINUE
         }
     ],
-    'f' : [
+    'f': [
         {
-            'match' : 'lief',
-            'replacement' : 'liev',
-            'type' : STOP
+            'match': 'lief',
+            'replacement': 'liev',
+            'type': STOP
         },
         {
-            'match' : 'if',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'if',
+            'replacement': '',
+            'type': CONTINUE
         }
     ],
-    'g' : [
+    'g': [
         {
-            'match' : 'ing',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ing',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'iag',
-            'replacement' : 'y',
-            'type' : STOP
+            'match': 'iag',
+            'replacement': 'y',
+            'type': STOP
         },
         {
-            'match' : 'ag',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ag',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'gg',
-            'replacement' : 'g',
-            'type' : STOP
+            'match': 'gg',
+            'replacement': 'g',
+            'type': STOP
         }
     ],
-    'h' : [
+    'h': [
         {
-            'match' : 'th',
-            'replacement' : '',
-            'type' : INTACT
+            'match': 'th',
+            'replacement': '',
+            'type': INTACT
         },
         {
-            'match' : 'guish',
-            'replacement' : 'ct',
-            'type' : STOP
+            'match': 'guish',
+            'replacement': 'ct',
+            'type': STOP
         },
         {
-            'match' : 'ish',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ish',
+            'replacement': '',
+            'type': CONTINUE
         }
     ],
-    'i' : [
+    'i': [
         {
-            'match' : 'i',
-            'replacement' : '',
-            'type' : INTACT
+            'match': 'i',
+            'replacement': '',
+            'type': INTACT
         },
         {
-            'match' : 'i',
-            'replacement' : 'y',
-            'type' : CONTINUE
+            'match': 'i',
+            'replacement': 'y',
+            'type': CONTINUE
         }
     ],
-    'j' : [
+    'j': [
         {
-            'match' : 'ij',
-            'replacement' : 'id',
-            'type' : STOP
+            'match': 'ij',
+            'replacement': 'id',
+            'type': STOP
         },
         {
-            'match' : 'fuj',
-            'replacement' : 'fus',
-            'type' : STOP
+            'match': 'fuj',
+            'replacement': 'fus',
+            'type': STOP
         },
         {
-            'match' : 'uj',
-            'replacement' : 'ud',
-            'type' : STOP
+            'match': 'uj',
+            'replacement': 'ud',
+            'type': STOP
         },
         {
-            'match' : 'oj',
-            'replacement' : 'od',
-            'type' : STOP
+            'match': 'oj',
+            'replacement': 'od',
+            'type': STOP
         },
         {
-            'match' : 'hej',
-            'replacement' : 'her',
-            'type' : STOP
+            'match': 'hej',
+            'replacement': 'her',
+            'type': STOP
         },
         {
-            'match' : 'verj',
-            'replacement' : 'vert',
-            'type' : STOP
+            'match': 'verj',
+            'replacement': 'vert',
+            'type': STOP
         },
         {
-            'match' : 'misj',
-            'replacement' : 'mit',
-            'type' : STOP
+            'match': 'misj',
+            'replacement': 'mit',
+            'type': STOP
         },
         {
-            'match' : 'nj',
-            'replacement' : 'nd',
-            'type' : STOP
+            'match': 'nj',
+            'replacement': 'nd',
+            'type': STOP
         },
         {
-            'match' : 'j',
-            'replacement' : 's',
-            'type' : STOP
+            'match': 'j',
+            'replacement': 's',
+            'type': STOP
         }
     ],
-    'l' : [
+    'l': [
         {
-            'match' : 'ifiabl',
-            'replacement' : '',
-            'type' : STOP
+            'match': 'ifiabl',
+            'replacement': '',
+            'type': STOP
         },
         {
-            'match' : 'iabl',
-            'replacement' : 'y',
-            'type' : STOP
+            'match': 'iabl',
+            'replacement': 'y',
+            'type': STOP
         },
         {
-            'match' : 'abl',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'abl',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ibl',
-            'replacement' : '',
-            'type' : STOP
+            'match': 'ibl',
+            'replacement': '',
+            'type': STOP
         },
         {
-            'match' : 'bil',
-            'replacement' : 'bl',
-            'type' : CONTINUE
+            'match': 'bil',
+            'replacement': 'bl',
+            'type': CONTINUE
         },
         {
-            'match' : 'cl',
-            'replacement' : 'c',
-            'type' : STOP
+            'match': 'cl',
+            'replacement': 'c',
+            'type': STOP
         },
         {
-            'match' : 'iful',
-            'replacement' : 'y',
-            'type' : STOP
+            'match': 'iful',
+            'replacement': 'y',
+            'type': STOP
         },
         {
-            'match' : 'ful',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ful',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ul',
-            'replacement' : '',
-            'type' : STOP
+            'match': 'ul',
+            'replacement': '',
+            'type': STOP
         },
         {
-            'match' : 'ial',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ial',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ual',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ual',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'al',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'al',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'll',
-            'replacement' : 'l',
-            'type' : STOP
+            'match': 'll',
+            'replacement': 'l',
+            'type': STOP
         }
     ],
-    'm' : [
+    'm': [
         {
-            'match' : 'ium',
-            'replacement' : '',
-            'type' : STOP
+            'match': 'ium',
+            'replacement': '',
+            'type': STOP
         },
         {
-            'match' : 'um',
-            'replacement' : '',
-            'type' : INTACT
+            'match': 'um',
+            'replacement': '',
+            'type': INTACT
         },
         {
-            'match' : 'ism',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ism',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'mm',
-            'replacement' : 'm',
-            'type' : STOP
+            'match': 'mm',
+            'replacement': 'm',
+            'type': STOP
         }
     ],
-    'n' : [
+    'n': [
         {
-            'match' : 'sion',
-            'replacement' : 'j',
-            'type' : CONTINUE
+            'match': 'sion',
+            'replacement': 'j',
+            'type': CONTINUE
         },
         {
-            'match' : 'xion',
-            'replacement' : 'ct',
-            'type' : STOP
+            'match': 'xion',
+            'replacement': 'ct',
+            'type': STOP
         },
         {
-            'match' : 'ion',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ion',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ian',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ian',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'an',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'an',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'een',
-            'replacement' : '',
-            'type' : PROTECT
+            'match': 'een',
+            'replacement': '',
+            'type': PROTECT
         },
         {
-            'match' : 'en',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'en',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'nn',
-            'replacement' : 'n',
-            'type' : STOP
+            'match': 'nn',
+            'replacement': 'n',
+            'type': STOP
         }
     ],
-    'p' : [
+    'p': [
         {
-            'match' : 'ship',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ship',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'pp',
-            'replacement' : 'p',
-            'type' : STOP
+            'match': 'pp',
+            'replacement': 'p',
+            'type': STOP
         }
     ],
-    'r' : [
+    'r': [
         {
-            'match' : 'er',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'er',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ear',
-            'replacement' : '',
-            'type' : PROTECT
+            'match': 'ear',
+            'replacement': '',
+            'type': PROTECT
         },
         {
-            'match' : 'ar',
-            'replacement' : '',
-            'type' : STOP
+            'match': 'ar',
+            'replacement': '',
+            'type': STOP
         },
         {
-            'match' : 'ior',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ior',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'or',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'or',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ur',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ur',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'rr',
-            'replacement' : 'r',
-            'type' : STOP
+            'match': 'rr',
+            'replacement': 'r',
+            'type': STOP
         },
         {
-            'match' : 'tr',
-            'replacement' : 't',
-            'type' : CONTINUE
+            'match': 'tr',
+            'replacement': 't',
+            'type': CONTINUE
         },
         {
-            'match' : 'ier',
-            'replacement' : 'y',
-            'type' : CONTINUE
+            'match': 'ier',
+            'replacement': 'y',
+            'type': CONTINUE
         }
     ],
-    's' : [
+    's': [
         {
-            'match' : 'ies',
-            'replacement' : 'y',
-            'type' : CONTINUE
+            'match': 'ies',
+            'replacement': 'y',
+            'type': CONTINUE
         },
         {
-            'match' : 'sis',
-            'replacement' : 's',
-            'type' : STOP
+            'match': 'sis',
+            'replacement': 's',
+            'type': STOP
         },
         {
-            'match' : 'is',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'is',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ness',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ness',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ss',
-            'replacement' : '',
-            'type' : PROTECT
+            'match': 'ss',
+            'replacement': '',
+            'type': PROTECT
         },
         {
-            'match' : 'ous',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ous',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'us',
-            'replacement' : '',
-            'type' : INTACT
+            'match': 'us',
+            'replacement': '',
+            'type': INTACT
         },
         {
-            'match' : 's',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 's',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 's',
-            'replacement' : '',
-            'type' : STOP
+            'match': 's',
+            'replacement': '',
+            'type': STOP
         }
     ],
-    't' : [
+    't': [
         {
-            'match' : 'plicat',
-            'replacement' : 'ply',
-            'type' : STOP
+            'match': 'plicat',
+            'replacement': 'ply',
+            'type': STOP
         },
         {
-            'match' : 'at',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'at',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ment',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ment',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ent',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ent',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ant',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ant',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ript',
-            'replacement' : 'rib',
-            'type' : STOP
+            'match': 'ript',
+            'replacement': 'rib',
+            'type': STOP
         },
         {
-            'match' : 'orpt',
-            'replacement' : 'orb',
-            'type' : STOP
+            'match': 'orpt',
+            'replacement': 'orb',
+            'type': STOP
         },
         {
-            'match' : 'duct',
-            'replacement' : 'duc',
-            'type' : STOP
+            'match': 'duct',
+            'replacement': 'duc',
+            'type': STOP
         },
         {
-            'match' : 'sumpt',
-            'replacement' : 'sum',
-            'type' : STOP
+            'match': 'sumpt',
+            'replacement': 'sum',
+            'type': STOP
         },
         {
-            'match' : 'cept',
-            'replacement' : 'ceiv',
-            'type' : STOP
+            'match': 'cept',
+            'replacement': 'ceiv',
+            'type': STOP
         },
         {
-            'match' : 'olut',
-            'replacement' : 'olv',
-            'type' : STOP
+            'match': 'olut',
+            'replacement': 'olv',
+            'type': STOP
         },
         {
-            'match' : 'sist',
-            'replacement' : '',
-            'type' : PROTECT
+            'match': 'sist',
+            'replacement': '',
+            'type': PROTECT
         },
         {
-            'match' : 'ist',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ist',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'tt',
-            'replacement' : 't',
-            'type' : STOP
+            'match': 'tt',
+            'replacement': 't',
+            'type': STOP
         }
     ],
-    'u' : [
+    'u': [
         {
-            'match' : 'iqu',
-            'replacement' : '',
-            'type' : STOP
+            'match': 'iqu',
+            'replacement': '',
+            'type': STOP
         },
         {
-            'match' : 'ogu',
-            'replacement' : 'og',
-            'type' : STOP
+            'match': 'ogu',
+            'replacement': 'og',
+            'type': STOP
         }
     ],
-    'v' : [
+    'v': [
         {
-            'match' : 'siv',
-            'replacement' : 'j',
-            'type' : CONTINUE
+            'match': 'siv',
+            'replacement': 'j',
+            'type': CONTINUE
         },
         {
-            'match' : 'eiv',
-            'replacement' : '',
-            'type' : PROTECT
+            'match': 'eiv',
+            'replacement': '',
+            'type': PROTECT
         },
         {
-            'match' : 'iv',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'iv',
+            'replacement': '',
+            'type': CONTINUE
         }
     ],
-    'y' : [
+    'y': [
         {
-            'match' : 'bly',
-            'replacement' : 'bl',
-            'type' : CONTINUE
+            'match': 'bly',
+            'replacement': 'bl',
+            'type': CONTINUE
         },
         {
-            'match' : 'ily',
-            'replacement' : 'y',
-            'type' : CONTINUE
+            'match': 'ily',
+            'replacement': 'y',
+            'type': CONTINUE
         },
         {
-            'match' : 'ply',
-            'replacement' : '',
-            'type' : PROTECT
+            'match': 'ply',
+            'replacement': '',
+            'type': PROTECT
         },
         {
-            'match' : 'ly',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ly',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ogy',
-            'replacement' : 'og',
-            'type' : STOP
+            'match': 'ogy',
+            'replacement': 'og',
+            'type': STOP
         },
         {
-            'match' : 'phy',
-            'replacement' : 'ph',
-            'type' : STOP
+            'match': 'phy',
+            'replacement': 'ph',
+            'type': STOP
         },
         {
-            'match' : 'omy',
-            'replacement' : 'om',
-            'type' : STOP
+            'match': 'omy',
+            'replacement': 'om',
+            'type': STOP
         },
         {
-            'match' : 'opy',
-            'replacement' : 'op',
-            'type' : STOP
+            'match': 'opy',
+            'replacement': 'op',
+            'type': STOP
         },
         {
-            'match' : 'ity',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ity',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ety',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ety',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'lty',
-            'replacement' : 'l',
-            'type' : STOP
+            'match': 'lty',
+            'replacement': 'l',
+            'type': STOP
         },
         {
-            'match' : 'istry',
-            'replacement' : '',
-            'type' : STOP
+            'match': 'istry',
+            'replacement': '',
+            'type': STOP
         },
         {
-            'match' : 'ary',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ary',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ory',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'ory',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'ify',
-            'replacement' : '',
-            'type' : STOP
+            'match': 'ify',
+            'replacement': '',
+            'type': STOP
         },
         {
-            'match' : 'ncy',
-            'replacement' : 'nt',
-            'type' : CONTINUE
+            'match': 'ncy',
+            'replacement': 'nt',
+            'type': CONTINUE
         },
         {
-            'match' : 'acy',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'acy',
+            'replacement': '',
+            'type': CONTINUE
         }
     ],
-    'z' : [
+    'z': [
         {
-            'match' : 'iz',
-            'replacement' : '',
-            'type' : CONTINUE
+            'match': 'iz',
+            'replacement': '',
+            'type': CONTINUE
         },
         {
-            'match' : 'yz',
-            'replacement' : 'ys',
-            'type' : STOP
+            'match': 'yz',
+            'replacement': 'ys',
+            'type': STOP
         }
     ]
 };
