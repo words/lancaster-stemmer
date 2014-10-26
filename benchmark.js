@@ -1,23 +1,32 @@
 'use strict';
 
-var stemmer,
-    words,
-    natural;
-
 /**
- * Module dependencies.
+ * Dependencies.
  */
+var stemmer;
 
 stemmer = require('./');
 
 /**
- * Optional module dependencies.
+ * Optional dependencies.
  */
 
+var natural,
+    exception;
+
 try {
-    require('../node_modules/paice/paice.js');
+    require('./node_modules/paice/paice.js');
+} catch (error) {
+    exception = error;
+}
+
+try {
     natural = require('natural').LancasterStemmer.stem;
 } catch (error) {
+    exception = error;
+}
+
+if (exception) {
     console.log(
         '\u001B[0;31m' +
         'The libraries needed by this benchmark could not be found. ' +
@@ -28,11 +37,15 @@ try {
 }
 
 /**
+ * Fixtures.
+ *
  * The first 1000 words from Letterpress:
  *   https://github.com/atebits/Words
  */
 
-words = [
+var fixtures;
+
+fixtures = [
     'aa',
     'aah',
     'aahed',
@@ -1036,14 +1049,22 @@ words = [
 ];
 
 /**
+ * Do something for every word.
+ *
+ * @param {function(word)} callback
+ */
+
+function eachWord(callback) {
+    fixtures.forEach(callback);
+}
+
+/**
  * Benchmark this module.
  */
 
 suite('lancaster-stemmer — this module', function () {
     bench('op/s * 1,000', function () {
-        words.forEach(function (word) {
-            stemmer(word);
-        });
+        eachWord(stemmer);
     });
 });
 
@@ -1054,9 +1075,7 @@ suite('lancaster-stemmer — this module', function () {
 if (natural) {
     suite('natural', function () {
         bench('op/s * 1,000', function () {
-            words.forEach(function (word) {
-                natural(word);
-            });
+            eachWord(natural);
         });
     });
 }
@@ -1068,7 +1087,7 @@ if (natural) {
 if ('getStem' in String.prototype) {
     suite('paice — If you\'re into extending prototypes...', function () {
         bench('op/s * 1,000', function () {
-            words.forEach(function (word) {
+            eachWord(function (word) {
                 word.getStem();
             });
         });

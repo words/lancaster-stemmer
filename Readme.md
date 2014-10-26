@@ -51,13 +51,13 @@ On a MacBook Air, it runs about 641,000 op/s.
 
 ```
            lancaster-stemmer — this module
-  641 op/s » op/s * 1,000
+  583 op/s » op/s * 1,000
 
            natural
-  477 op/s » op/s * 1,000
+  528 op/s » op/s * 1,000
 
            paice — If you're into extending prototypes...
-  212 op/s » op/s * 1,000
+  231 op/s » op/s * 1,000
 ```
 
 ## License
