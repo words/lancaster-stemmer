@@ -671,6 +671,7 @@ function isAcceptable(value) {
 function applyRules(value, isIntact) {
     var ruleset,
         index,
+        length,
         rule,
         next,
         breakpoint;
@@ -682,8 +683,11 @@ function applyRules(value, isIntact) {
     }
 
     index = -1;
+    length = ruleset.length;
 
-    while (rule = ruleset[++index]) {
+    while (++index < length) {
+        rule = ruleset[index];
+
         if (!isIntact && rule.type === INTACT) {
             continue;
         }
