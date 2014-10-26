@@ -27,6 +27,6 @@
     "benchmark.js",
     "component.json",
     "package.json",
-    "spec/"
+    "test.js"
   ]
 }
