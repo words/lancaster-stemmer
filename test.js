@@ -1,17 +1,17 @@
 'use strict';
 
+/**
+ * Dependencies.
+ */
+
 var stemmer,
     assert;
-
-/**
- * Module dependencies.
- */
 
 stemmer = require('./');
 assert = require('assert');
 
 /**
- * Unit tests.
+ * Tests.
  */
 
 describe('lancasterStemmer(value)', function () {
