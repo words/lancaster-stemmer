@@ -1,4 +1,20 @@
 
+n.n.n / 2014-10-26
+==================
+
+ * Refactor benchmark
+ * Move `benchmark/index.js` to `benchmark.js`
+ * Refactor test
+ * Refactor property order in `package.json`
+ * Add `.eslintrc`
+ * Remove conditional assignment from module
+ * Refactor `.jscs.json`
+ * Move `spec/lancaster-stemmer.spec.js` to `test.js`
+ * Update `.gitignore`, `.npmignore`, bower ignore
+ * Refactor module to disallow space after object keys
+ * Disallow space after object keys in `.jscs.json`
+ * Update eslint, mocha
+
 0.1.1 / 2014-09-22
 ==================
 
