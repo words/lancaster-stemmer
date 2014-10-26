@@ -8,7 +8,7 @@ var stemmer,
  * Module dependencies.
  */
 
-stemmer = require('..');
+stemmer = require('./');
 
 /**
  * Optional module dependencies.
