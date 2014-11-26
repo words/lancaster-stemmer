@@ -34,11 +34,6 @@ stemmer('anxious'); // anxy
 stemmer('analytic') === stemmer('AnAlYtIc'); // true
 ```
 
-## Other Lancaster implementations
-
-- [NaturalNode/natural](https://github.com/NaturalNode/natural).
-- [gruppler/paice.js](https://github.com/gruppler/paice.js) — Extends the native `String#`, and isn’t a node package.
-
 ## Benchmark
 
 Run the benchmark yourself:
