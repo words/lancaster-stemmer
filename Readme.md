@@ -36,23 +36,17 @@ stemmer('analytic') === stemmer('AnAlYtIc'); // true
 
 ## Benchmark
 
-Run the benchmark yourself:
-
-```sh
-$ npm run benchmark
-```
-
-On a MacBook Air, it runs about 641,000 op/s.
+On a MacBook Air, it runs about 651,000 op/s.
 
 ```
            lancaster-stemmer — this module
-  583 op/s » op/s * 1,000
+  651 op/s » op/s * 1,000
 
            natural
-  528 op/s » op/s * 1,000
+  537 op/s » op/s * 1,000
 
            paice — If you're into extending prototypes...
-  231 op/s » op/s * 1,000
+  241 op/s » op/s * 1,000
 ```
 
 ## License
