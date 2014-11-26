@@ -22,16 +22,16 @@ $ bower install lancaster-stemmer
 ## Usage
 
 ```js
-var stemmer = require('lancaster-stemmer');
+var lancasterStemmer = require('lancaster-stemmer');
 
-stemmer('considerations'); // consid
-stemmer('detestable'); // detest
-stemmer('vileness'); // vil
-stemmer('giggling'); // giggl
-stemmer('anxious'); // anxy
+lancasterStemmer('considerations'); // consid
+lancasterStemmer('detestable'); // detest
+lancasterStemmer('vileness'); // vil
+lancasterStemmer('giggling'); // giggl
+lancasterStemmer('anxious'); // anxy
 
 /* Case insensitive */
-stemmer('analytic') === stemmer('AnAlYtIc'); // true
+lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc'); // true
 ```
 
 ## Benchmark
