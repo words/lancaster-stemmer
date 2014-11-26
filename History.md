@@ -1,4 +1,19 @@
 
+n.n.n / 2014-11-26
+==================
+
+ * Add CLI
+ * Refactor npm script targets in `package.json`
+ * Refactor useage example in `Readme.md`
+ * Add link to personal website to copyright in `Readme.md`
+ * Refactor benchmark results in `Readme.md`
+ * Remove other implementations from `Readme.md`
+ * Add shorter description to `Readme.md`
+ * Add flat badges to `Readme.md`
+ * Fix incorrect executive rights on `test.js`
+ * Update matcha
+ * Fix overly specific jscs version range in `package.json`
+
 0.1.2 / 2014-10-26
 ==================
 
