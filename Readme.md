@@ -34,6 +34,34 @@ lancasterStemmer('anxious'); // anxy
 lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc'); // true
 ```
 
+## CLI
+
+Install:
+```sh
+$ npm install --global lancaster-stemmer
+```
+
+Use:
+```
+Usage: lancaster-stemmer [options] string
+
+Options:
+
+  -h, --help           output usage information
+  -v, --version        output version number
+
+Usage:
+
+# output stem of given value
+$ lancaster-stemmer considerations
+# consid
+
+# output stem of stdin
+$ echo "giggling" | lancaster-stemmer
+# giggl
+```
+
+
 ## Benchmark
 
 On a MacBook Air, it runs about 651,000 op/s.

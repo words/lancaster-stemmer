@@ -7,7 +7,9 @@
     "paice",
     "husk",
     "lancaster",
-    "stemmer"
+    "stemmer",
+    "cli",
+    "bin"
   ],
   "repository": "wooorm/lancaster-stemmer",
   "scripts" : [

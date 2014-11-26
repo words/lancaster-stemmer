@@ -7,13 +7,18 @@
     "paice",
     "husk",
     "lancaster",
-    "stemmer"
+    "stemmer",
+    "cli",
+    "bin"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/wooorm/lancaster-stemmer.git"
   },
   "author": "Titus Wormer <tituswormer@gmail.com>",
+  "bin": {
+    "lancaster-stemmer": "cli.js"
+  },
   "devDependencies": {
     "eslint": "^0.9.0",
     "istanbul": "^0.3.0",
@@ -28,8 +33,9 @@
     "lint-api": "node_modules/.bin/eslint index.js",
     "lint-test": "node_modules/.bin/eslint test.js --env mocha",
     "lint-benchmark": "node_modules/.bin/eslint benchmark.js --global suite,set,bench",
-    "lint-style": "node_modules/.bin/jscs index.js test.js benchmark.js --reporter=inline",
-    "lint": "npm run lint-api && npm run lint-test && npm run lint-style && npm run lint-benchmark",
+    "lint-cli": "node_modules/.bin/eslint cli.js",
+    "lint-style": "node_modules/.bin/jscs index.js cli.js test.js benchmark.js --reporter=inline",
+    "lint": "npm run lint-api && npm run lint-test && npm run lint-cli && npm run lint-benchmark && npm run lint-style",
     "make": "npm run lint && npm run coverage",
     "install-benchmark": "npm install natural && git clone git@github.com:gruppler/paice.js.git node_modules/paice",
     "benchmark": "node_modules/.bin/matcha benchmark.js"
