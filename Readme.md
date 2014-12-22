@@ -5,17 +5,17 @@
 ## Installation
 
 npm:
-```sh
+```bash
 $ npm install lancaster-stemmer
 ```
 
 Component:
-```sh
+```bash
 $ component install wooorm/lancaster-stemmer
 ```
 
 Bower:
-```sh
+```bash
 $ bower install lancaster-stemmer
 ```
 
@@ -37,13 +37,15 @@ lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc'); // true
 ## CLI
 
 Install:
-```sh
+```bash
 $ npm install --global lancaster-stemmer
 ```
 
 Use:
 ```
-Usage: lancaster-stemmer [options] string
+Usage: lancaster-stemmer [options] <word>
+
+Lancaster stemming algorithm
 
 Options:
 
@@ -52,15 +54,14 @@ Options:
 
 Usage:
 
-# output stem of given value
+# output edit distance
 $ lancaster-stemmer considerations
 # consid
 
-# output stem of stdin
+# output edit distance from stdin
 $ echo "giggling" | lancaster-stemmer
 # giggl
 ```
-
 
 ## Benchmark
 
