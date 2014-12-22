@@ -1,4 +1,15 @@
 
+n.n.n / 2014-12-22
+==================
+
+  * Add `test.sh`
+  * Refactor CLI to accept stdin
+  * Refactor to adhere to strict jsdoc style
+  * Add jscs-jsdoc configuration to `.jscs.json`
+  * Add jscs-jsdoc as a dev-dependency
+  * Refactor npm scripts for changes in npm
+  * Update eslint
+
 0.1.3 / 2014-11-26
 ==================
 
