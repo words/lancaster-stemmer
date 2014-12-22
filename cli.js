@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-/**
+/*
  * Dependencies.
  */
 
@@ -11,7 +11,7 @@ var lancasterStemmer,
 pack = require('./package.json');
 lancasterStemmer = require('./');
 
-/**
+/*
  * Arguments.
  */
 
@@ -22,7 +22,6 @@ argv = process.argv.slice(2);
 /**
  * Help.
  */
-
 function help() {
     console.log([
         '',
@@ -45,7 +44,7 @@ function help() {
     ].join('\n  ') + '\n');
 }
 
-/**
+/*
  * Program.
  */
 
