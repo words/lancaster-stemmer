@@ -1,106 +1,68 @@
 #!/usr/bin/env node
+/**
+ * @author Titus Wormer
+ * @copyright 2014 Titus Wormer
+ * @license MIT
+ * @module lancaster-stemmer
+ * @fileoverview CLI for `lancaster-stemmer`.
+ */
+
 'use strict';
 
-/*
- * Dependencies.
- */
+/* Dependencies. */
+var pack = require('./package.json');
+var stemmer = require('./');
 
-var lancasterStemmer,
-    pack;
+/* Arguments. */
+var argv = process.argv.slice(2);
 
-pack = require('./package.json');
-lancasterStemmer = require('./');
-
-/*
- * Detect if a value is expected to be piped in.
- */
-
-var expextPipeIn;
-
-expextPipeIn = !process.stdin.isTTY;
-
-/*
- * Arguments.
- */
-
-var argv;
-
-argv = process.argv.slice(2);
-
-/*
- * Command.
- */
-
-var command;
-
-command = Object.keys(pack.bin)[0];
-
-/**
- * Help.
- *
- * @return {string}
- */
-function help() {
-    return [
-        '',
-        'Usage: ' + command + ' [options] <word>',
-        '',
-        pack.description,
-        '',
-        'Options:',
-        '',
-        '  -h, --help           output usage information',
-        '  -v, --version        output version number',
-        '',
-        'Usage:',
-        '',
-        '# output edit distance',
-        '$ ' + command + ' considerations',
-        '# ' + lancasterStemmer('considerations'),
-        '',
-        '# output edit distance from stdin',
-        '$ echo "giggling" | ' + command,
-        '# ' + lancasterStemmer('giggling'),
-        ''
-    ].join('\n  ') + '\n';
-}
-
-/**
- * Get the edit distance for a list containing one word.
- *
- * @param {Array.<string>} values
- */
-function getStem(values) {
-    if (values.length === 1) {
-        console.log(lancasterStemmer(values[0]));
-    } else {
-        process.stderr.write(help());
-        process.exit(1);
-    }
-}
-
-/*
- * Program.
- */
-
+/* Program. */
 if (
-    argv.indexOf('--help') !== -1 ||
-    argv.indexOf('-h') !== -1
+  argv.indexOf('--help') !== -1 ||
+  argv.indexOf('-h') !== -1
 ) {
-    console.log(help());
+  console.log(help());
 } else if (
-    argv.indexOf('--version') !== -1 ||
-    argv.indexOf('-v') !== -1
+  argv.indexOf('--version') !== -1 ||
+  argv.indexOf('-v') !== -1
 ) {
-    console.log(pack.version);
-} else if (argv.length) {
-    getStem(argv.join(' ').split(/\s+/g));
-} else if (!expextPipeIn) {
-    getStem([]);
+  console.log(pack.version);
+} else if (argv.length === 0) {
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('data', function (data) {
+    console.log(stem(data));
+  });
 } else {
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
-    process.stdin.on('data', function (data) {
-        getStem(data.trim().split(/\s+/g));
-    });
+  console.log(stem(argv.join(' ')));
+}
+
+/* Core. */
+function stem(values) {
+  return values.split(/\s+/g).map(stemmer).join(' ');
+}
+
+/* Help. */
+function help() {
+  return [
+    '',
+    'Usage: ' + pack.name + ' [options] <words...>',
+    '',
+    pack.description,
+    '',
+    'Options:',
+    '',
+    '  -h, --help           output usage information',
+    '  -v, --version        output version number',
+    '',
+    'Usage:',
+    '',
+    '# output stems',
+    '$ ' + pack.name + ' considerations',
+    stem('considerations'),
+    '',
+    '# output stems from stdin',
+    '$ echo "detestable vileness" | ' + pack.name,
+    stem('detestable vileness')
+  ].join('\n  ') + '\n';
 }

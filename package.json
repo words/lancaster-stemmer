@@ -11,36 +11,53 @@
     "cli",
     "bin"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wooorm/lancaster-stemmer.git"
-  },
-  "author": "Titus Wormer <tituswormer@gmail.com>",
-  "bin": {
-    "lancaster-stemmer": "cli.js"
-  },
+  "repository": "https://github.com/wooorm/lancaster-stemmer",
+  "bugs": "https://github.com/wooorm/lancaster-stemmer/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "bin": "cli.js",
+  "main": "index.js",
+  "dependencies": {},
   "devDependencies": {
-    "eslint": "^0.10.0",
-    "istanbul": "^0.3.0",
-    "jscs": "^1.0.0",
-    "jscs-jsdoc": "^0.3.0",
-    "matcha": "^0.6.0",
-    "mocha": "^2.0.0"
+    "browserify": "^13.0.0",
+    "esmangle": "^1.0.0",
+    "execa": "^0.4.0",
+    "nyc": "^8.3.0",
+    "remark-cli": "^2.0.0",
+    "remark-preset-wooorm": "^1.0.0",
+    "tape": "^4.4.0",
+    "xo": "^0.16.0"
   },
   "scripts": {
-    "test": "_mocha --check-leaks test.js",
-    "test-cli": "bash test.sh",
-    "test-coveralls": "istanbul cover _mocha --report lcovonly -- --check-leaks test.js",
-    "test-travis": "npm run test-cli && npm run test-coveralls",
-    "coverage": "istanbul cover _mocha -- -- test.js",
-    "lint-api": "eslint index.js",
-    "lint-test": "eslint --env mocha test.js",
-    "lint-benchmark": "eslint --global suite,set,bench benchmark.js",
-    "lint-cli": "eslint --rule no-process-exit:false cli.js",
-    "lint-style": "jscs --reporter inline index.js benchmark.js cli.js test.js",
-    "lint": "npm run lint-api && npm run lint-test && npm run lint-cli && npm run lint-benchmark && npm run lint-style",
-    "make": "npm run lint && npm run coverage",
-    "install-benchmark": "npm install natural && git clone git@github.com:gruppler/paice.js.git node_modules/paice",
-    "benchmark": "matcha benchmark.js"
+    "build-md": "remark . --quiet --frail",
+    "build-bundle": "browserify index.js -s lancasterStemmer > lancaster-stemmer.js",
+    "build-mangle": "esmangle lancaster-stemmer.js > lancaster-stemmer.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint": "xo",
+    "test-api": "node test",
+    "test-coverage": "nyc --reporter lcov tape test.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "ignores": [
+      "lancaster-stemmer.js"
+    ]
+  },
+  "remarkConfig": {
+    "output": true,
+    "presets": "wooorm"
   }
 }

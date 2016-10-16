@@ -1,495 +1,304 @@
+/* *
+ * @author Titus Wormer
+ * @copyright 2014 Titus Wormer
+ * @license MIT
+ * @module lancaster-stemmer
+ * @fileoverview Test suite for `lancaster-stemmer`.
+ */
+
 'use strict';
 
-/*
- * Dependencies.
- */
-
-var stemmer,
-    assert;
-
-stemmer = require('./');
-assert = require('assert');
-
-/*
- * Tests.
- */
-
-describe('lancasterStemmer(value)', function () {
-    it('should be case insensitive', function () {
-        assert(stemmer('analytic') === stemmer('AnAlYtIc'));
-    });
+/* Dependencies. */
+var PassThrough = require('stream').PassThrough;
+var test = require('tape');
+var execa = require('execa');
+var version = require('./package').version;
+var stemmer = require('./');
 
-    it('should not fail on empy inputs', function () {
-        assert(stemmer('') === '');
-    });
+/* API. */
+test('api', function (t) {
+  t.equal(stemmer('analytic'), stemmer('AnAlYtIc'), 'should be case insensitive');
 
-    it('should drop ia$', function () {
-        assert(!/ia$/.test(stemmer('abasia')));
-    });
+  t.equal(stemmer(''), '', 'should not fail on empy inputs');
 
-    it('should drop a$', function () {
-        assert(!/a$/.test(stemmer('abaya')));
-    });
+  t.notOk(/ia$/.test(stemmer('abasia'), 'should drop ia$'));
 
-    it('should transform bb$ into b', function () {
-        assert(/[^b]b$/.test(stemmer('ebb')));
-    });
+  t.notOk(/a$/.test(stemmer('abaya')), 'should drop a$');
 
-    it('should transform ytic$ into ys', function () {
-        assert(/ys$/.test(stemmer('analytic')));
-    });
+  t.ok(/[^b]b$/.test(stemmer('ebb')), 'should transform bb$ into b');
 
-    it('should drop ic$', function () {
-        assert(!/ic$/.test(stemmer('zymotic')));
-    });
+  t.ok(/ys$/.test(stemmer('analytic')), 'should transform ytic$ into ys');
 
-    it('should transform nc$ into nt', function () {
-        assert(/nt$/.test(stemmer('franc')));
-    });
+  t.notOk(/ic$/.test(stemmer('zymotic')), 'should drop ic$');
 
-    it('should transform dd$ into d', function () {
-        assert(/[^d]d$/.test(stemmer('add')));
-    });
+  t.ok(/nt$/.test(stemmer('franc')), 'should transform nc$ into nt');
 
-    it('should transform ied$ into y', function () {
-        assert(/y$/.test(stemmer('aeried')));
-    });
+  t.ok(/[^d]d$/.test(stemmer('add')), 'should transform dd$ into d');
 
-    it('should transform ceed$ into cess', function () {
-        assert(/cess$/.test(stemmer('exceed')));
-    });
+  t.ok(/y$/.test(stemmer('aeried')), 'should transform ied$ into y');
 
-    it('should transform eed$ into ee', function () {
-        assert(/ee$/.test(stemmer('zeed')));
-    });
+  t.ok(/cess$/.test(stemmer('exceed')), 'should transform ceed$ into cess');
 
-    it('should drop ed$', function () {
-        assert(!/ed$/.test(stemmer('bowed')));
-    });
+  t.ok(/ee$/.test(stemmer('zeed')), 'should transform eed$ into ee');
 
-    it('should drop hood$', function () {
-        assert(!/hood$/.test(stemmer('boyhood')));
-    });
+  t.notOk(/ed$/.test(stemmer('bowed')), 'should drop ed$');
 
-    it('should drop e$', function () {
-        assert(!/e$/.test(stemmer('brae')));
-    });
+  t.notOk(/hood$/.test(stemmer('boyhood')), 'should drop hood$');
 
-    it('should transform lief$ into liev', function () {
-        assert(/liev$/.test(stemmer('disbelief')));
-    });
+  t.notOk(/e$/.test(stemmer('brae')), 'should drop e$');
 
-    it('should drop if$', function () {
-        assert(!/if$/.test(stemmer('khalif')));
-    });
+  t.ok(/liev$/.test(stemmer('disbelief')), 'should transform lief$ into liev');
 
-    it('should drop ing$', function () {
-        assert(!/ing$/.test(stemmer('giggling')));
-    });
+  t.notOk(/if$/.test(stemmer('khalif')), 'should drop if$');
 
-    it('should transform iag$ into y', function () {
-        /* `es$` is also removed */
-        assert(/y$/.test(stemmer('intermarriages')));
-    });
+  t.notOk(/ing$/.test(stemmer('giggling')), 'should drop ing$');
 
-    it('should drop ag$', function () {
-        assert(!/ag$/.test(stemmer('jetlag')));
-    });
+  /* `es$` is also removed */
+  t.ok(/y$/.test(stemmer('intermarriages')), 'should transform iag$ into y');
 
-    it('should transform gg$ into g', function () {
-        assert(/[^g]g$/.test(stemmer('magg')));
-    });
+  t.notOk(/ag$/.test(stemmer('jetlag')), 'should drop ag$');
 
-    it('should drop th$', function () {
-        assert(!/th$/.test(stemmer('mammoth')));
-    });
+  t.ok(/[^g]g$/.test(stemmer('magg')), 'should transform gg$ into g');
 
-    it('should transform guish$ into ct', function () {
-        assert(/ct$/.test(stemmer('aguish')));
-    });
+  t.notOk(/th$/.test(stemmer('mammoth')), 'should drop th$');
 
-    it('should drop ish$', function () {
-        assert(!/ish$/.test(stemmer('angelfish')));
-    });
+  t.ok(/ct$/.test(stemmer('aguish')), 'should transform guish$ into ct');
 
-    it('should drop i$', function () {
-        assert(!/i$/.test(stemmer('anti')));
-    });
+  t.notOk(/ish$/.test(stemmer('angelfish')), 'should drop ish$');
 
-    it('should transform i$ into y', function () {
-        /* The ous$ will first remove, then the transformation */
-        assert(/y$/.test(stemmer('anxious')));
-    });
+  t.notOk(/i$/.test(stemmer('anti')), 'should drop i$');
 
-    it('should transform ij$ into id', function () {
-        assert(/id$/.test(stemmer('basij')));
-    });
+  /* The ous$ will first remove, then the transformation */
+  t.ok(/y$/.test(stemmer('anxious')), 'should transform i$ into y');
 
-    it('should transform fuj$ into fus', function () {
-        /*sion > j, fuj > fus*/
-        assert(/fus$/.test(stemmer('affusion')));
-    });
+  t.ok(/id$/.test(stemmer('basij')), 'should transform ij$ into id');
 
-    it('should transform uj$ into ud', function () {
-        /*sion > j, uj > ud*/
-        assert(/ud$/.test(stemmer('collusion')));
-    });
+  /* sion > j, fuj > fus */
+  t.ok(/fus$/.test(stemmer('affusion')), 'should transform fuj$ into fus');
 
-    it('should transform oj$ into od', function () {
-        /*sion > j, oj > od*/
-        assert(/od$/.test(stemmer('corrosion')));
-    });
+  /* sion > j, uj > ud */
+  t.ok(/ud$/.test(stemmer('collusion')), 'should transform uj$ into ud');
 
-    it('should transform hej$ into her', function () {
-        /*sion > j, hej > her*/
-        assert(/her$/.test(stemmer('adhesion')));
-    });
+  /* sion > j, oj > od */
+  t.ok(/od$/.test(stemmer('corrosion')), 'should transform oj$ into od');
 
-    it('should transform verj$ into vert', function () {
-        /* sion > j, verj > vert*/
-        assert(/vert$/.test(stemmer('version')));
-    });
+  /* sion > j, hej > her */
+  t.ok(/her$/.test(stemmer('adhesion')), 'should transform hej$ into her');
 
-    it('should transform misj$ into mit', function () {
-        /* sion > j, misj > mit*/
-        /* For some unknown reason the original code returns `misj` */
-        assert(/mit$/.test(stemmer('mission')));
-    });
+  /* sion > j, verj > vert */
+  t.ok(/vert$/.test(stemmer('version')), 'should transform verj$ into vert');
 
-    it('should transform nj$ into nd', function () {
-        /* sion > j, nj > nd*/
-        assert(/nd$/.test(stemmer('comprehension')));
-    });
+  /* sion > j, misj > mit */
+  /* For some unknown reason the original code returns `misj` */
+  t.ok(/mit$/.test(stemmer('mission')), 'should transform misj$ into mit');
 
-    it('should transform j$ into s', function () {
-        assert(/s$/.test(stemmer('svaraj')));
-    });
+  /* sion > j, nj > nd */
+  t.ok(/nd$/.test(stemmer('comprehension')), 'should transform nj$ into nd');
 
-    it('should drop ifiabl$', function () {
-        assert(!/ifiabl$/.test(stemmer('classifiable')));
-    });
+  t.ok(/s$/.test(stemmer('svaraj')), 'should transform j$ into s');
 
-    it('should transform iabl$ into y', function () {
-        assert(/y$/.test(stemmer('compliable')));
-    });
+  t.notOk(/ifiabl$/.test(stemmer('classifiable')), 'should drop ifiabl$');
 
-    it('should drop abl$', function () {
-        assert(!/abl$/.test(stemmer('compostable')));
-    });
+  t.ok(/y$/.test(stemmer('compliable')), 'should transform iabl$ into y');
 
-    it('should drop ibl$', function () {
-        assert(!/ibl$/.test(stemmer('conductible')));
-    });
+  t.notOk(/abl$/.test(stemmer('compostable')), 'should drop abl$');
 
-    it('should transform bil$ into bl', function () {
-        assert(/bl$/.test(stemmer('airmobile')));
-    });
+  t.notOk(/ibl$/.test(stemmer('conductible')), 'should drop ibl$');
 
-    it('should transform cl$ into c', function () {
-        assert(/c$/.test(stemmer('curricle')));
-    });
+  t.ok(/bl$/.test(stemmer('airmobile')), 'should transform bil$ into bl');
 
-    it('should transform iful$ into y', function () {
-        assert(/y$/.test(stemmer('beautiful')));
-    });
+  t.ok(/c$/.test(stemmer('curricle')), 'should transform cl$ into c');
 
-    it('should drop ful$', function () {
-        assert(!/ful$/.test(stemmer('behoveful')));
-    });
+  t.ok(/y$/.test(stemmer('beautiful')), 'should transform iful$ into y');
 
-    it('should drop ul$', function () {
-        assert(!/ul$/.test(stemmer('blameful')));
-    });
+  t.notOk(/ful$/.test(stemmer('behoveful')), 'should drop ful$');
 
-    it('should drop ial$', function () {
-        assert(!/ial$/.test(stemmer('akenial')));
-    });
+  t.notOk(/ul$/.test(stemmer('blameful')), 'should drop ul$');
 
-    it('should drop ual$', function () {
-        assert(!/ual$/.test(stemmer('annual')));
-    });
+  t.notOk(/ial$/.test(stemmer('akenial')), 'should drop ial$');
 
-    it('should drop al$', function () {
-        assert(!/al$/.test(stemmer('anodal')));
-    });
+  t.notOk(/ual$/.test(stemmer('annual')), 'should drop ual$');
 
-    it('should transform ll$ into l', function () {
-        assert(/[^l]l$/.test(stemmer('anthill')));
-    });
+  t.notOk(/al$/.test(stemmer('anodal')), 'should drop al$');
 
-    it('should drop ium$', function () {
-        assert(!/ium$/.test(stemmer('anthodium')));
-    });
+  t.ok(/[^l]l$/.test(stemmer('anthill')), 'should transform ll$ into l');
 
-    it('should drop um$', function () {
-        assert(!/um$/.test(stemmer('antirrhinum')));
-    });
+  t.notOk(/ium$/.test(stemmer('anthodium')), 'should drop ium$');
 
-    it('should drop ism$', function () {
-        assert(!/ism$/.test(stemmer('apism')));
-    });
+  t.notOk(/um$/.test(stemmer('antirrhinum')), 'should drop um$');
 
-    it('should transform mm$ into m', function () {
-        assert(/[^m]m$/.test(stemmer('shtumm')));
-    });
+  t.notOk(/ism$/.test(stemmer('apism')), 'should drop ism$');
 
-    it('should transform sion$ into j', function () {
-        /* untestable, although the `j` tests also test this */
-    });
+  t.ok(/[^m]m$/.test(stemmer('shtumm')), 'should transform mm$ into m');
 
-    it('should transform xion$ into ct', function () {
-        assert(/ct$/.test(stemmer('affluxion')));
-    });
+  /* untestable, although the `j` tests also test this */
+  // 'should transform sion$ into j'
 
-    it('should drop ion$', function () {
-        assert(!/ion$/.test(stemmer('alation')));
-    });
+  t.ok(/ct$/.test(stemmer('affluxion')), 'should transform xion$ into ct');
 
-    it('should drop ian$', function () {
-        assert(!/ian$/.test(stemmer('abecedarian')));
-    });
+  t.notOk(/ion$/.test(stemmer('alation')), 'should drop ion$');
 
-    it('should drop an$', function () {
-        assert(!/an$/.test(stemmer('acaridan')));
-    });
+  t.notOk(/ian$/.test(stemmer('abecedarian')), 'should drop ian$');
 
-    it('should protect een$', function () {
-        assert(/een$/.test(stemmer('armozeen')));
-    });
+  t.notOk(/an$/.test(stemmer('acaridan')), 'should drop an$');
 
-    it('should drop en$', function () {
-        assert(!/en$/.test(stemmer('bandsmen')));
-    });
+  t.ok(/een$/.test(stemmer('armozeen')), 'should protect een$');
 
-    it('should transform nn$ into n', function () {
-        assert(/[^n]n$/.test(stemmer('jotunn')));
-    });
+  t.notOk(/en$/.test(stemmer('bandsmen')), 'should drop en$');
 
-    it('should drop ship$', function () {
-        assert(!/ship$/.test(stemmer('judgeship')));
-    });
+  t.ok(/[^n]n$/.test(stemmer('jotunn')), 'should transform nn$ into n');
 
-    it('should transform pp$ into p', function () {
-        assert(/[^p]p$/.test(stemmer('schlepp')));
-    });
+  t.notOk(/ship$/.test(stemmer('judgeship')), 'should drop ship$');
 
-    it('should drop er$', function () {
-        assert(!/er$/.test(stemmer('teacher')));
-    });
+  t.ok(/[^p]p$/.test(stemmer('schlepp')), 'should transform pp$ into p');
 
-    it('should protect ear$', function () {
-        assert(/ear$/.test(stemmer('shapewear')));
-    });
+  t.notOk(/er$/.test(stemmer('teacher')), 'should drop er$');
 
-    it('should drop ar$', function () {
-        assert(!/ar$/.test(stemmer('alcazar')));
-    });
+  t.ok(/ear$/.test(stemmer('shapewear')), 'should protect ear$');
 
-    it('should drop ior$', function () {
-        assert(!/ior$/.test(stemmer('superior')));
-    });
+  t.notOk(/ar$/.test(stemmer('alcazar')), 'should drop ar$');
 
-    it('should drop or$', function () {
-        assert(!/or$/.test(stemmer('advisor')));
-    });
+  t.notOk(/ior$/.test(stemmer('superior')), 'should drop ior$');
 
-    it('should drop ur$', function () {
-        assert(!/ur$/.test(stemmer('tailleur')));
-    });
+  t.notOk(/or$/.test(stemmer('advisor')), 'should drop or$');
 
-    it('should transform rr$ into r', function () {
-        assert(/[^r]r$/.test(stemmer('whirr')));
-    });
+  t.notOk(/ur$/.test(stemmer('tailleur')), 'should drop ur$');
 
-    it('should transform tr$ into t', function () {
-        assert(/t$/.test(stemmer('accipitral')));
-    });
+  t.ok(/[^r]r$/.test(stemmer('whirr')), 'should transform rr$ into r');
 
-    it('should transform ier$ into y', function () {
-        assert(/y$/.test(stemmer('aerier')));
-    });
+  t.ok(/t$/.test(stemmer('accipitral')), 'should transform tr$ into t');
 
-    it('should transform ies$ into y', function () {
-        assert(/y$/.test(stemmer('abbotcies')));
-    });
+  t.ok(/y$/.test(stemmer('aerier')), 'should transform ier$ into y');
 
-    it('should transform sis$ into s', function () {
-        assert(/s$/.test(stemmer('abiosis')));
-    });
+  t.ok(/y$/.test(stemmer('abbotcies')), 'should transform ies$ into y');
 
-    it('should drop is$', function () {
-        assert(!/is$/.test(stemmer('abris')));
-    });
+  t.ok(/s$/.test(stemmer('abiosis')), 'should transform sis$ into s');
 
-    it('should drop ness$', function () {
-        assert(!/ness$/.test(stemmer('abruptness')));
-    });
+  t.notOk(/is$/.test(stemmer('abris')), 'should drop is$');
 
-    it('should protect ss$', function () {
-        assert(/ss$/.test(stemmer('abyss')));
-    });
+  t.notOk(/ness$/.test(stemmer('abruptness')), 'should drop ness$');
 
-    it('should drop ous$', function () {
-        assert(!/ous$/.test(stemmer('acetous')));
-    });
+  t.ok(/ss$/.test(stemmer('abyss')), 'should protect ss$');
 
-    it('should drop us$', function () {
-        assert(!/us$/.test(stemmer('acinus')));
-    });
+  t.notOk(/ous$/.test(stemmer('acetous')), 'should drop ous$');
 
-    it('should drop s$', function () {
-        assert(!/s$/.test(stemmer('abacs')));
-    });
+  t.notOk(/us$/.test(stemmer('acinus')), 'should drop us$');
 
-    it('should transform plicat$ into ply', function () {
-        assert(/ply$/.test(stemmer('supplicat')));
-    });
+  t.notOk(/s$/.test(stemmer('abacs')), 'should drop s$');
 
-    it('should drop at$', function () {
-        assert(!/at$/.test(stemmer('surat')));
-    });
+  t.ok(/ply$/.test(stemmer('supplicat')), 'should transform plicat$ into ply');
 
-    it('should drop ment$', function () {
-        assert(!/ment$/.test(stemmer('tanglement')));
-    });
+  t.notOk(/at$/.test(stemmer('surat')), 'should drop at$');
 
-    it('should drop ent$', function () {
-        assert(!/ent$/.test(stemmer('temperament')));
-    });
+  t.notOk(/ment$/.test(stemmer('tanglement')), 'should drop ment$');
 
-    it('should drop ant$', function () {
-        assert(!/ant$/.test(stemmer('tenant')));
-    });
+  t.notOk(/ent$/.test(stemmer('temperament')), 'should drop ent$');
 
-    it('should transform ript$ into rib', function () {
-        assert(/rib$/.test(stemmer('transcript')));
-    });
+  t.notOk(/ant$/.test(stemmer('tenant')), 'should drop ant$');
 
-    it('should transform orpt$ into orb', function () {
-        assert(/orb$/.test(stemmer('absorptance')));
-    });
+  t.ok(/rib$/.test(stemmer('transcript')), 'should transform ript$ into rib');
 
-    it('should transform duct$ into duc', function () {
-        assert(/duc$/.test(stemmer('aeroduct')));
-    });
+  t.ok(/orb$/.test(stemmer('absorptance')), 'should transform orpt$ into orb');
 
-    it('should transform sumpt$ into sum', function () {
-        assert(/sum$/.test(stemmer('consumpt')));
-    });
+  t.ok(/duc$/.test(stemmer('aeroduct')), 'should transform duct$ into duc');
 
-    it('should transform cept$ into ceiv', function () {
-        assert(/ceiv$/.test(stemmer('discept')));
-    });
+  t.ok(/sum$/.test(stemmer('consumpt')), 'should transform sumpt$ into sum');
 
-    it('should transform olut$ into olv', function () {
-        assert(/olv$/.test(stemmer('absolute')));
-    });
+  t.ok(/ceiv$/.test(stemmer('discept')), 'should transform cept$ into ceiv');
 
-    it('should protect sist$', function () {
-        assert(/sist$/.test(stemmer('fantasist')));
-    });
+  t.ok(/olv$/.test(stemmer('absolute')), 'should transform olut$ into olv');
 
-    it('should drop ist$', function () {
-        assert(!/ist$/.test(stemmer('fashionist')));
-    });
+  t.ok(/sist$/.test(stemmer('fantasist')), 'should protect sist$');
 
-    it('should transform tt$ into t', function () {
-        assert(/[^t]t$/.test(stemmer('forebitt')));
-    });
+  t.notOk(/ist$/.test(stemmer('fashionist')), 'should drop ist$');
 
-    it('should drop iqu$', function () {
-        assert(!/iqu$/.test(stemmer('antiquity')));
-    });
+  t.ok(/[^t]t$/.test(stemmer('forebitt')), 'should transform tt$ into t');
 
-    it('should transform ogu$ into og', function () {
-        assert(/og$/.test(stemmer('trialogue')));
-    });
+  t.notOk(/iqu$/.test(stemmer('antiquity')), 'should drop iqu$');
 
-    it('should transform siv$ into j', function () {
-        /* untestable, although the `j` tests also test this */
-    });
+  t.ok(/og$/.test(stemmer('trialogue')), 'should transform ogu$ into og');
 
-    it('should protect eiv$', function () {
-        assert(/eiv$/.test(stemmer('apperceive')));
-    });
+  /* untestable, although the `j` tests also test this */
+  // 'should transform siv$ into j'
 
-    it('should drop iv$', function () {
-        assert(!/iv$/.test(stemmer('leitmotiv')));
-    });
+  t.ok(/eiv$/.test(stemmer('apperceive')), 'should protect eiv$');
 
-    it('should transform bly$ into bl', function () {
-        assert(/bl$/.test(stemmer('amble')));
-    });
+  t.notOk(/iv$/.test(stemmer('leitmotiv')), 'should drop iv$');
 
-    it('should transform ily$ into y', function () {
-        assert(/y$/.test(stemmer('aerily')));
-    });
+  t.ok(/bl$/.test(stemmer('amble')), 'should transform bly$ into bl');
 
-    it('should protect ply$', function () {
-        assert(/ply$/.test(stemmer('misapply')));
-    });
+  t.ok(/y$/.test(stemmer('aerily')), 'should transform ily$ into y');
 
-    it('should drop ly$', function () {
-        assert(!/ly$/.test(stemmer('miscellaneously')));
-    });
+  t.ok(/ply$/.test(stemmer('misapply')), 'should protect ply$');
 
-    it('should transform ogy$ into og', function () {
-        assert(/og$/.test(stemmer('misology')));
-    });
+  t.notOk(/ly$/.test(stemmer('miscellaneously')), 'should drop ly$');
 
-    it('should transform phy$ into ph', function () {
-        assert(/ph$/.test(stemmer('morphography')));
-    });
+  t.ok(/og$/.test(stemmer('misology')), 'should transform ogy$ into og');
 
-    it('should transform omy$ into om', function () {
-        assert(/om$/.test(stemmer('neurotomy')));
-    });
+  t.ok(/ph$/.test(stemmer('morphography')), 'should transform phy$ into ph');
 
-    it('should transform opy$ into op', function () {
-        assert(/op$/.test(stemmer('otoscopy')));
-    });
+  t.ok(/om$/.test(stemmer('neurotomy')), 'should transform omy$ into om');
 
-    it('should drop ity$', function () {
-        assert(!/ity$/.test(stemmer('outcity')));
-    });
+  t.ok(/op$/.test(stemmer('otoscopy')), 'should transform opy$ into op');
 
-    it('should drop ety$', function () {
-        assert(!/ety$/.test(stemmer('peripety')));
-    });
+  t.notOk(/ity$/.test(stemmer('outcity')), 'should drop ity$');
 
-    it('should transform lty$ into l', function () {
-        assert(/l$/.test(stemmer('realty')));
-    });
+  t.notOk(/ety$/.test(stemmer('peripety')), 'should drop ety$');
 
-    it('should drop istry$', function () {
-        assert(!/istry$/.test(stemmer('registry')));
-    });
+  t.ok(/l$/.test(stemmer('realty')), 'should transform lty$ into l');
 
-    it('should drop ary$', function () {
-        assert(!/ary$/.test(stemmer('repetitionary')));
-    });
+  t.notOk(/istry$/.test(stemmer('registry')), 'should drop istry$');
 
-    it('should drop ory$', function () {
-        assert(!/ory$/.test(stemmer('repository')));
-    });
+  t.notOk(/ary$/.test(stemmer('repetitionary')), 'should drop ary$');
 
-    it('should drop ify$', function () {
-        assert(!/ify$/.test(stemmer('requalify')));
-    });
+  t.notOk(/ory$/.test(stemmer('repository')), 'should drop ory$');
 
-    it('should transform ncy$ into nt', function () {
-        assert(/nt$/.test(stemmer('bouncy')));
-    });
+  t.notOk(/ify$/.test(stemmer('requalify')), 'should drop ify$');
 
-    it('should drop acy$', function () {
-        assert(!/acy$/.test(stemmer('retiracy')));
-    });
+  t.ok(/nt$/.test(stemmer('bouncy')), 'should transform ncy$ into nt');
+
+  t.notOk(/acy$/.test(stemmer('retiracy')), 'should drop acy$');
+
+  t.notOk(/iz$/.test(stemmer('showbiz')), 'should drop iz$');
+
+  t.ok(/ys$/.test(stemmer('agryze')), 'should transform yz$ into ys');
+
+  t.end();
+});
+
+/* CLI. */
+test('cli', function (t) {
+  var input = new PassThrough();
+
+  t.plan(7);
+
+  execa.stdout('./cli.js', ['considerations']).then(function (result) {
+    t.equal(result, 'consid', 'argument');
+  });
+
+  execa.stdout('./cli.js', ['detestable', 'vileness']).then(function (result) {
+    t.equal(result, 'detest vil', 'arguments');
+  });
+
+  execa.stdout('./cli.js', {input: input}).then(function (result) {
+    t.equal(result, 'detest vil', 'stdin');
+  });
+
+  input.write('detestable');
+
+  setImmediate(function () {
+    input.end(' vileness');
+  });
 
-    it('should drop iz$', function () {
-        assert(!/iz$/.test(stemmer('showbiz')));
+  ['-h', '--help'].forEach(function (flag) {
+    execa.stdout('./cli.js', [flag]).then(function (result) {
+      t.ok(/\s+Usage: lancaster-stemmer/.test(result), flag);
     });
+  });
 
-    it('should transform yz$ into ys', function () {
-        assert(/ys$/.test(stemmer('agryze')));
+  ['-v', '--version'].forEach(function (flag) {
+    execa.stdout('./cli.js', [flag]).then(function (result) {
+      t.equal(result, version, flag);
     });
+  });
 });
