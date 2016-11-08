@@ -1,8 +1,7 @@
 language: node_js
 node_js:
 - '4.0'
-- '5.0'
-- '6.0'
+- '7.0'
 sudo: false
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
@@ -12,7 +11,7 @@ deploy:
       secure: mrAIETsL7yWUybIZlt0CUjlRnD+O0N2lPcyFadA2xU0VaUkOeYbytGc4K9W8u0EzYTMh+prgjKgC3YbLSPKKfFMF0xb67ghyfyF72WMmRw+JTDDtXCm/9k39xZ1i6MZxrAL5TuTIAZkB4t32rIKaiBXrTLAiG+RNDJT7TSnCLNA=
     on:
       tags: true
-      node: '5.0'
+      node: '4.0'
   - provider: releases
     api_key:
       secure: kxkEwKOZbv9LCWV2E+UmMegE/ZUkpn7SM0iCbNX5dnjWJIj4PUnBZqu5/je8HYbp0QVCBXeSag3rZXq7NWuw4oa342qkYaGKkA6UF7ER+fM1d8Dggb5BNcP/zH6f37uY16O0q19xh8x/aSZwEagQmoj/b2AjME0GqEnEyTM0PI8=
@@ -21,4 +20,4 @@ deploy:
       - "lancaster-stemmer.min.js"
     on:
       tags: true
-      node: '6.0'
+      node: '7.0'
