@@ -1,14 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2014 Titus Wormer
- * @license MIT
- * @module lancaster-stemmer
- * @fileoverview Lancaster stemming algorithm.
- */
-
 'use strict';
 
-/* Expose. */
 module.exports = lancasterStemmer;
 
 /* Constants. */
@@ -176,12 +167,7 @@ var rules = {
   ]
 };
 
-/**
- * Stem a value.
- *
- * @param {string} value - Value to stem.
- * @return {string} stem according to Lancaster.
- */
+/* Stem a value. */
 function lancasterStemmer(value) {
   return applyRules(String(value).toLowerCase(), true);
 }

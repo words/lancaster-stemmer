@@ -1,12 +1,4 @@
 #!/usr/bin/env node
-/**
- * @author Titus Wormer
- * @copyright 2014 Titus Wormer
- * @license MIT
- * @module lancaster-stemmer
- * @fileoverview CLI for `lancaster-stemmer`.
- */
-
 'use strict';
 
 /* Dependencies. */

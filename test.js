@@ -1,21 +1,11 @@
-/* *
- * @author Titus Wormer
- * @copyright 2014 Titus Wormer
- * @license MIT
- * @module lancaster-stemmer
- * @fileoverview Test suite for `lancaster-stemmer`.
- */
-
 'use strict';
 
-/* Dependencies. */
 var PassThrough = require('stream').PassThrough;
 var test = require('tape');
 var execa = require('execa');
 var version = require('./package').version;
 var stemmer = require('./');
 
-/* API. */
 test('api', function (t) {
   t.equal(stemmer('analytic'), stemmer('AnAlYtIc'), 'should be case insensitive');
 
@@ -266,7 +256,6 @@ test('api', function (t) {
   t.end();
 });
 
-/* CLI. */
 test('cli', function (t) {
   var input = new PassThrough();
 
