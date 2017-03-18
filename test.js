@@ -121,7 +121,7 @@ test('api', function (t) {
 
   t.ok(/[^m]m$/.test(stemmer('shtumm')), 'should transform mm$ into m');
 
-  /* untestable, although the `j` tests also test this */
+  /* Untestable, although the `j` tests also test this */
   // 'should transform sion$ into j'
 
   t.ok(/ct$/.test(stemmer('affluxion')), 'should transform xion$ into ct');
@@ -208,7 +208,7 @@ test('api', function (t) {
 
   t.ok(/og$/.test(stemmer('trialogue')), 'should transform ogu$ into og');
 
-  /* untestable, although the `j` tests also test this */
+  /* Untestable, although the `j` tests also test this */
   // 'should transform siv$ into j'
 
   t.ok(/eiv$/.test(stemmer('apperceive')), 'should protect eiv$');
