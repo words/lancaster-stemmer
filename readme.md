@@ -15,14 +15,14 @@ Use:
 ```js
 var lancasterStemmer = require('lancaster-stemmer');
 
-lancasterStemmer('considerations'); // consid
-lancasterStemmer('detestable'); // detest
-lancasterStemmer('vileness'); // vil
-lancasterStemmer('giggling'); // giggl
-lancasterStemmer('anxious'); // anxy
+lancasterStemmer('considerations'); //=> 'consid'
+lancasterStemmer('detestable'); //=> 'detest'
+lancasterStemmer('vileness'); //=> 'vil'
+lancasterStemmer('giggling'); //=> 'giggl'
+lancasterStemmer('anxious'); //=> 'anxy'
 
 /* Case insensitive */
-lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc'); // true
+lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc'); //=> true
 ```
 
 ## CLI
