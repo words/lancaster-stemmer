@@ -2,14 +2,12 @@
 
 module.exports = lancasterStemmer;
 
-/* Constants. */
 var STOP = -1;
 var INTACT = 0;
 var CONTINUE = 1;
 var PROTECT = 2;
 var VOWELS = /[aeiouy]/;
 
-/* Rules. */
 var rules = {
   a: [
     {match: 'ia', replacement: '', type: INTACT},
@@ -167,12 +165,10 @@ var rules = {
   ]
 };
 
-/* Stem a value. */
 function lancasterStemmer(value) {
   return applyRules(String(value).toLowerCase(), true);
 }
 
-/* Apply rules to a value. */
 function applyRules(value, isIntact) {
   var ruleset = rules[value.charAt(value.length - 1)];
   var breakpoint;

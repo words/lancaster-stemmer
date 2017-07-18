@@ -1,14 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-/* Dependencies. */
 var pack = require('./package.json');
 var stemmer = require('./');
 
-/* Arguments. */
 var argv = process.argv.slice(2);
 
-/* Program. */
 if (
   argv.indexOf('--help') !== -1 ||
   argv.indexOf('-h') !== -1
@@ -29,12 +26,10 @@ if (
   console.log(stem(argv.join(' ')));
 }
 
-/* Core. */
 function stem(values) {
   return values.split(/\s+/g).map(stemmer).join(' ');
 }
 
-/* Help. */
 function help() {
   return [
     '',
