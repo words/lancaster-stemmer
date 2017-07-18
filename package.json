@@ -1,6 +1,6 @@
 {
   "name": "lancaster-stemmer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lancaster stemming algorithm",
   "license": "MIT",
   "keywords": [
