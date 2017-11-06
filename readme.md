@@ -77,13 +77,13 @@ detest vil
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/lancaster-stemmer.svg
+[travis-badge]: https://img.shields.io/travis/words/lancaster-stemmer.svg
 
-[travis]: https://travis-ci.org/wooorm/lancaster-stemmer
+[travis]: https://travis-ci.org/words/lancaster-stemmer
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/lancaster-stemmer.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/words/lancaster-stemmer.svg
 
-[codecov]: https://codecov.io/github/wooorm/lancaster-stemmer
+[codecov]: https://codecov.io/github/words/lancaster-stemmer
 
 [license]: LICENSE
 

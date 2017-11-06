@@ -11,8 +11,9 @@
     "cli",
     "bin"
   ],
-  "repository": "wooorm/lancaster-stemmer",
-  "bugs": "https://github.com/wooorm/lancaster-stemmer/issues",
+  "homepage": "https://words.github.io/lancaster-stemmer/",
+  "repository": "words/lancaster-stemmer",
+  "bugs": "https://github.com/words/lancaster-stemmer/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
