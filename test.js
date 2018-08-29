@@ -4,7 +4,7 @@ var PassThrough = require('stream').PassThrough;
 var test = require('tape');
 var execa = require('execa');
 var version = require('./package').version;
-var stemmer = require('./');
+var stemmer = require('.');
 
 test('api', function (t) {
   t.equal(stemmer('analytic'), stemmer('AnAlYtIc'), 'should be case insensitive');
