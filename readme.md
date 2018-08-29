@@ -85,7 +85,7 @@ detest vil
 
 [codecov]: https://codecov.io/github/words/lancaster-stemmer
 
-[license]: LICENSE
+[license]: license
 
 [author]: http://wooorm.com
 
