@@ -87,6 +87,6 @@ detest vil
 
 [license]: license
 
-[author]: http://wooorm.com
+[author]: https://wooorm.com
 
-[source]: http://web.archive.org/web/20140827005744/http://www.comp.lancs.ac.uk/computing/research/stemming/index.htm
+[source]: https://web.archive.org/web/20140827005744/http://www.comp.lancs.ac.uk/computing/research/stemming/index.htm
