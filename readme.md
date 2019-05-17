@@ -7,15 +7,15 @@
 
 [Lancaster stemming algorithm][source].
 
-## API
+## Install
 
-Install:
+[npm][]:
 
 ```bash
 npm install lancaster-stemmer
 ```
 
-Use:
+## API
 
 ```js
 var lancasterStemmer = require('lancaster-stemmer')
@@ -31,14 +31,6 @@ lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc') // => true
 ```
 
 ## CLI
-
-Install:
-
-```sh
-npm install -g lancaster-stemmer
-```
-
-Use:
 
 ```txt
 Usage: lancaster-stemmer [options] <words...>
@@ -97,6 +89,8 @@ detest vil
 [size-badge]: https://img.shields.io/bundlephobia/minzip/lancaster-stemmer.svg
 
 [size]: https://bundlephobia.com/result?p=lancaster-stemmer
+
+[npm]: https://www.npmjs.com
 
 [license]: license
 
