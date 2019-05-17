@@ -1,4 +1,9 @@
-# lancaster-stemmer [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# lancaster-stemmer
+
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
 
 [Lancaster stemming algorithm][source].
 
@@ -77,13 +82,21 @@ detest vil
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/words/lancaster-stemmer.svg
+[build-badge]: https://img.shields.io/travis/words/lancaster-stemmer.svg
 
-[travis]: https://travis-ci.org/words/lancaster-stemmer
+[build]: https://travis-ci.org/words/lancaster-stemmer
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/words/lancaster-stemmer.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/words/lancaster-stemmer.svg
 
-[codecov]: https://codecov.io/github/words/lancaster-stemmer
+[coverage]: https://codecov.io/github/words/lancaster-stemmer
+
+[downloads-badge]: https://img.shields.io/npm/dm/lancaster-stemmer.svg
+
+[downloads]: https://www.npmjs.com/package/lancaster-stemmer
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/lancaster-stemmer.svg
+
+[size]: https://bundlephobia.com/result?p=lancaster-stemmer
 
 [license]: license
 
