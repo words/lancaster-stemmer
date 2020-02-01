@@ -13,6 +13,10 @@
   ],
   "homepage": "https://words.github.io/lancaster-stemmer/",
   "repository": "words/lancaster-stemmer",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/wooorm"
+  },
   "bugs": "https://github.com/words/lancaster-stemmer/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
