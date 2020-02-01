@@ -193,7 +193,7 @@ function applyRules(value, isintact) {
 
     breakpoint = value.length - rule.match.length
 
-    if (breakpoint < 0 || value.substr(breakpoint) !== rule.match) {
+    if (breakpoint < 0 || value.slice(breakpoint) !== rule.match) {
       continue
     }
 
@@ -201,7 +201,7 @@ function applyRules(value, isintact) {
       return value
     }
 
-    next = value.substr(0, breakpoint) + rule.replacement
+    next = value.slice(0, breakpoint) + rule.replacement
 
     if (!acceptable(next)) {
       continue
