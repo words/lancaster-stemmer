@@ -5,6 +5,7 @@ import {PassThrough} from 'stream'
 import test from 'tape'
 import {lancasterStemmer as m} from './index.js'
 
+/** @type {Object.<string, unknown>} */
 var pack = JSON.parse(
   String(fs.readFileSync(new URL('./package.json', import.meta.url)))
 )
@@ -14,7 +15,7 @@ test('api', function (t) {
 
   t.equal(m(''), '', 'should not fail on empy inputs')
 
-  t.notOk(/ia$/.test(m('abasia'), 'should drop ia$'))
+  t.notOk(m('abasia').endsWith('ia'), 'should drop ia$')
 
   t.notOk(m('abaya').endsWith('a'), 'should drop a$')
 

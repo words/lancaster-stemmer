@@ -6,6 +6,13 @@ var cont = 1
 var protect = 2
 var vowels = /[aeiouy]/
 
+/**
+ * @typedef {Object} RuleSet
+ * @property {string} match
+ * @property {string} replacement
+ * @property {number} type
+ */
+
 var rules = {
   a: [
     {match: 'ia', replacement: '', type: intact},
@@ -163,29 +170,40 @@ var rules = {
   ]
 }
 
+/**
+ * Lancaster stemming algorithm
+ *
+ * @param {string} value
+ * @returns {string}
+ */
 export function lancasterStemmer(value) {
   return applyRules(String(value).toLowerCase(), true)
 }
 
-function applyRules(value, isintact) {
+/**
+ * @param {string} value
+ * @param {boolean} isIntact
+ * @returns {string}
+ */
+function applyRules(value, isIntact) {
+  /** @type {Array.<RuleSet>} */
   var ruleset = rules[value.charAt(value.length - 1)]
+  var index = -1
+  /** @type {number} */
   var breakpoint
-  var index
-  var length
+  /** @type {RuleSet} */
   var rule
+  /** @type {string} */
   var next
 
   if (!ruleset) {
     return value
   }
 
-  index = -1
-  length = ruleset.length
-
-  while (++index < length) {
+  while (++index < ruleset.length) {
     rule = ruleset[index]
 
-    if (!isintact && rule.type === intact) {
+    if (!isIntact && rule.type === intact) {
       continue
     }
 
@@ -215,7 +233,12 @@ function applyRules(value, isintact) {
   return value
 }
 
-// Detect if a value is acceptable to return, or should be stemmed further.
+/**
+ * Detect if a value is acceptable to return, or should be stemmed further.
+ *
+ * @param {string} value
+ * @returns {boolean}
+ */
 function acceptable(value) {
   return vowels.test(value.charAt(0))
     ? value.length > 1
