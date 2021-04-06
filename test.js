@@ -6,7 +6,7 @@ var test = require('tape')
 var pack = require('./package')
 var stemmer = require('.')
 
-test('api', function(t) {
+test('api', function (t) {
   t.equal(
     stemmer('analytic'),
     stemmer('AnAlYtIc'),
@@ -17,287 +17,304 @@ test('api', function(t) {
 
   t.notOk(/ia$/.test(stemmer('abasia'), 'should drop ia$'))
 
-  t.notOk(/a$/.test(stemmer('abaya')), 'should drop a$')
+  t.notOk(stemmer('abaya').endsWith('a'), 'should drop a$')
 
   t.ok(/[^b]b$/.test(stemmer('ebb')), 'should transform bb$ into b')
 
-  t.ok(/ys$/.test(stemmer('analytic')), 'should transform ytic$ into ys')
+  t.ok(stemmer('analytic').endsWith('ys'), 'should transform ytic$ into ys')
 
-  t.notOk(/ic$/.test(stemmer('zymotic')), 'should drop ic$')
+  t.notOk(stemmer('zymotic').endsWith('ic'), 'should drop ic$')
 
-  t.ok(/nt$/.test(stemmer('franc')), 'should transform nc$ into nt')
+  t.ok(stemmer('franc').endsWith('nt'), 'should transform nc$ into nt')
 
   t.ok(/[^d]d$/.test(stemmer('add')), 'should transform dd$ into d')
 
-  t.ok(/y$/.test(stemmer('aeried')), 'should transform ied$ into y')
+  t.ok(stemmer('aeried').endsWith('y'), 'should transform ied$ into y')
 
-  t.ok(/cess$/.test(stemmer('exceed')), 'should transform ceed$ into cess')
+  t.ok(stemmer('exceed').endsWith('cess'), 'should transform ceed$ into cess')
 
-  t.ok(/ee$/.test(stemmer('zeed')), 'should transform eed$ into ee')
+  t.ok(stemmer('zeed').endsWith('ee'), 'should transform eed$ into ee')
 
-  t.notOk(/ed$/.test(stemmer('bowed')), 'should drop ed$')
+  t.notOk(stemmer('bowed').endsWith('ed'), 'should drop ed$')
 
-  t.notOk(/hood$/.test(stemmer('boyhood')), 'should drop hood$')
+  t.notOk(stemmer('boyhood').endsWith('hood'), 'should drop hood$')
 
-  t.notOk(/e$/.test(stemmer('brae')), 'should drop e$')
+  t.notOk(stemmer('brae').endsWith('e'), 'should drop e$')
 
-  t.ok(/liev$/.test(stemmer('disbelief')), 'should transform lief$ into liev')
+  t.ok(
+    stemmer('disbelief').endsWith('liev'),
+    'should transform lief$ into liev'
+  )
 
-  t.notOk(/if$/.test(stemmer('khalif')), 'should drop if$')
+  t.notOk(stemmer('khalif').endsWith('if'), 'should drop if$')
 
-  t.notOk(/ing$/.test(stemmer('giggling')), 'should drop ing$')
+  t.notOk(stemmer('giggling').endsWith('ing'), 'should drop ing$')
 
   // `es$` is also removed.
-  t.ok(/y$/.test(stemmer('intermarriages')), 'should transform iag$ into y')
+  t.ok(stemmer('intermarriages').endsWith('y'), 'should transform iag$ into y')
 
-  t.notOk(/ag$/.test(stemmer('jetlag')), 'should drop ag$')
+  t.notOk(stemmer('jetlag').endsWith('ag'), 'should drop ag$')
 
   t.ok(/[^g]g$/.test(stemmer('magg')), 'should transform gg$ into g')
 
-  t.notOk(/th$/.test(stemmer('mammoth')), 'should drop th$')
+  t.notOk(stemmer('mammoth').endsWith('th'), 'should drop th$')
 
-  t.ok(/ct$/.test(stemmer('aguish')), 'should transform guish$ into ct')
+  t.ok(stemmer('aguish').endsWith('ct'), 'should transform guish$ into ct')
 
-  t.notOk(/ish$/.test(stemmer('angelfish')), 'should drop ish$')
+  t.notOk(stemmer('angelfish').endsWith('ish'), 'should drop ish$')
 
-  t.notOk(/i$/.test(stemmer('anti')), 'should drop i$')
+  t.notOk(stemmer('anti').endsWith('i'), 'should drop i$')
 
   // The ous$ will first remove, then the transformation.
-  t.ok(/y$/.test(stemmer('anxious')), 'should transform i$ into y')
+  t.ok(stemmer('anxious').endsWith('y'), 'should transform i$ into y')
 
-  t.ok(/id$/.test(stemmer('basij')), 'should transform ij$ into id')
+  t.ok(stemmer('basij').endsWith('id'), 'should transform ij$ into id')
 
   // sion > j, fuj > fus.
-  t.ok(/fus$/.test(stemmer('affusion')), 'should transform fuj$ into fus')
+  t.ok(stemmer('affusion').endsWith('fus'), 'should transform fuj$ into fus')
 
   // sion > j, uj > ud.
-  t.ok(/ud$/.test(stemmer('collusion')), 'should transform uj$ into ud')
+  t.ok(stemmer('collusion').endsWith('ud'), 'should transform uj$ into ud')
 
   // sion > j, oj > od.
-  t.ok(/od$/.test(stemmer('corrosion')), 'should transform oj$ into od')
+  t.ok(stemmer('corrosion').endsWith('od'), 'should transform oj$ into od')
 
   // sion > j, hej > her.
-  t.ok(/her$/.test(stemmer('adhesion')), 'should transform hej$ into her')
+  t.ok(stemmer('adhesion').endsWith('her'), 'should transform hej$ into her')
 
   // sion > j, verj > vert.
-  t.ok(/vert$/.test(stemmer('version')), 'should transform verj$ into vert')
+  t.ok(stemmer('version').endsWith('vert'), 'should transform verj$ into vert')
 
   // sion > j, misj > mit.
   // For some unknown reason the original code returns `misj`.
-  t.ok(/mit$/.test(stemmer('mission')), 'should transform misj$ into mit')
+  t.ok(stemmer('mission').endsWith('mit'), 'should transform misj$ into mit')
 
   // sion > j, nj > nd.
-  t.ok(/nd$/.test(stemmer('comprehension')), 'should transform nj$ into nd')
+  t.ok(stemmer('comprehension').endsWith('nd'), 'should transform nj$ into nd')
 
-  t.ok(/s$/.test(stemmer('svaraj')), 'should transform j$ into s')
+  t.ok(stemmer('svaraj').endsWith('s'), 'should transform j$ into s')
 
-  t.notOk(/ifiabl$/.test(stemmer('classifiable')), 'should drop ifiabl$')
+  t.notOk(stemmer('classifiable').endsWith('ifiabl'), 'should drop ifiabl$')
 
-  t.ok(/y$/.test(stemmer('compliable')), 'should transform iabl$ into y')
+  t.ok(stemmer('compliable').endsWith('y'), 'should transform iabl$ into y')
 
-  t.notOk(/abl$/.test(stemmer('compostable')), 'should drop abl$')
+  t.notOk(stemmer('compostable').endsWith('abl'), 'should drop abl$')
 
-  t.notOk(/ibl$/.test(stemmer('conductible')), 'should drop ibl$')
+  t.notOk(stemmer('conductible').endsWith('ibl'), 'should drop ibl$')
 
-  t.ok(/bl$/.test(stemmer('airmobile')), 'should transform bil$ into bl')
+  t.ok(stemmer('airmobile').endsWith('bl'), 'should transform bil$ into bl')
 
-  t.ok(/c$/.test(stemmer('curricle')), 'should transform cl$ into c')
+  t.ok(stemmer('curricle').endsWith('c'), 'should transform cl$ into c')
 
-  t.ok(/y$/.test(stemmer('beautiful')), 'should transform iful$ into y')
+  t.ok(stemmer('beautiful').endsWith('y'), 'should transform iful$ into y')
 
-  t.notOk(/ful$/.test(stemmer('behoveful')), 'should drop ful$')
+  t.notOk(stemmer('behoveful').endsWith('ful'), 'should drop ful$')
 
-  t.notOk(/ul$/.test(stemmer('blameful')), 'should drop ul$')
+  t.notOk(stemmer('blameful').endsWith('ul'), 'should drop ul$')
 
-  t.notOk(/ial$/.test(stemmer('akenial')), 'should drop ial$')
+  t.notOk(stemmer('akenial').endsWith('ial'), 'should drop ial$')
 
-  t.notOk(/ual$/.test(stemmer('annual')), 'should drop ual$')
+  t.notOk(stemmer('annual').endsWith('ual'), 'should drop ual$')
 
-  t.notOk(/al$/.test(stemmer('anodal')), 'should drop al$')
+  t.notOk(stemmer('anodal').endsWith('al'), 'should drop al$')
 
   t.ok(/[^l]l$/.test(stemmer('anthill')), 'should transform ll$ into l')
 
-  t.notOk(/ium$/.test(stemmer('anthodium')), 'should drop ium$')
+  t.notOk(stemmer('anthodium').endsWith('ium'), 'should drop ium$')
 
-  t.notOk(/um$/.test(stemmer('antirrhinum')), 'should drop um$')
+  t.notOk(stemmer('antirrhinum').endsWith('um'), 'should drop um$')
 
-  t.notOk(/ism$/.test(stemmer('apism')), 'should drop ism$')
+  t.notOk(stemmer('apism').endsWith('ism'), 'should drop ism$')
 
   t.ok(/[^m]m$/.test(stemmer('shtumm')), 'should transform mm$ into m')
 
   // Untestable, although the `j` test tests this also.
   // 'should transform sion$ into j'
 
-  t.ok(/ct$/.test(stemmer('affluxion')), 'should transform xion$ into ct')
+  t.ok(stemmer('affluxion').endsWith('ct'), 'should transform xion$ into ct')
 
-  t.notOk(/ion$/.test(stemmer('alation')), 'should drop ion$')
+  t.notOk(stemmer('alation').endsWith('ion'), 'should drop ion$')
 
-  t.notOk(/ian$/.test(stemmer('abecedarian')), 'should drop ian$')
+  t.notOk(stemmer('abecedarian').endsWith('ian'), 'should drop ian$')
 
-  t.notOk(/an$/.test(stemmer('acaridan')), 'should drop an$')
+  t.notOk(stemmer('acaridan').endsWith('an'), 'should drop an$')
 
-  t.ok(/een$/.test(stemmer('armozeen')), 'should protect een$')
+  t.ok(stemmer('armozeen').endsWith('een'), 'should protect een$')
 
-  t.notOk(/en$/.test(stemmer('bandsmen')), 'should drop en$')
+  t.notOk(stemmer('bandsmen').endsWith('en'), 'should drop en$')
 
   t.ok(/[^n]n$/.test(stemmer('jotunn')), 'should transform nn$ into n')
 
-  t.notOk(/ship$/.test(stemmer('judgeship')), 'should drop ship$')
+  t.notOk(stemmer('judgeship').endsWith('ship'), 'should drop ship$')
 
   t.ok(/[^p]p$/.test(stemmer('schlepp')), 'should transform pp$ into p')
 
-  t.notOk(/er$/.test(stemmer('teacher')), 'should drop er$')
+  t.notOk(stemmer('teacher').endsWith('er'), 'should drop er$')
 
-  t.ok(/ear$/.test(stemmer('shapewear')), 'should protect ear$')
+  t.ok(stemmer('shapewear').endsWith('ear'), 'should protect ear$')
 
-  t.notOk(/ar$/.test(stemmer('alcazar')), 'should drop ar$')
+  t.notOk(stemmer('alcazar').endsWith('ar'), 'should drop ar$')
 
-  t.notOk(/ior$/.test(stemmer('superior')), 'should drop ior$')
+  t.notOk(stemmer('superior').endsWith('ior'), 'should drop ior$')
 
-  t.notOk(/or$/.test(stemmer('advisor')), 'should drop or$')
+  t.notOk(stemmer('advisor').endsWith('or'), 'should drop or$')
 
-  t.notOk(/ur$/.test(stemmer('tailleur')), 'should drop ur$')
+  t.notOk(stemmer('tailleur').endsWith('ur'), 'should drop ur$')
 
   t.ok(/[^r]r$/.test(stemmer('whirr')), 'should transform rr$ into r')
 
-  t.ok(/t$/.test(stemmer('accipitral')), 'should transform tr$ into t')
+  t.ok(stemmer('accipitral').endsWith('t'), 'should transform tr$ into t')
 
-  t.ok(/y$/.test(stemmer('aerier')), 'should transform ier$ into y')
+  t.ok(stemmer('aerier').endsWith('y'), 'should transform ier$ into y')
 
-  t.ok(/y$/.test(stemmer('abbotcies')), 'should transform ies$ into y')
+  t.ok(stemmer('abbotcies').endsWith('y'), 'should transform ies$ into y')
 
-  t.ok(/s$/.test(stemmer('abiosis')), 'should transform sis$ into s')
+  t.ok(stemmer('abiosis').endsWith('s'), 'should transform sis$ into s')
 
-  t.notOk(/is$/.test(stemmer('abris')), 'should drop is$')
+  t.notOk(stemmer('abris').endsWith('is'), 'should drop is$')
 
-  t.notOk(/ness$/.test(stemmer('abruptness')), 'should drop ness$')
+  t.notOk(stemmer('abruptness').endsWith('ness'), 'should drop ness$')
 
-  t.ok(/ss$/.test(stemmer('abyss')), 'should protect ss$')
+  t.ok(stemmer('abyss').endsWith('ss'), 'should protect ss$')
 
-  t.notOk(/ous$/.test(stemmer('acetous')), 'should drop ous$')
+  t.notOk(stemmer('acetous').endsWith('ous'), 'should drop ous$')
 
-  t.notOk(/us$/.test(stemmer('acinus')), 'should drop us$')
+  t.notOk(stemmer('acinus').endsWith('us'), 'should drop us$')
 
-  t.notOk(/s$/.test(stemmer('abacs')), 'should drop s$')
+  t.notOk(stemmer('abacs').endsWith('s'), 'should drop s$')
 
-  t.ok(/ply$/.test(stemmer('supplicat')), 'should transform plicat$ into ply')
+  t.ok(
+    stemmer('supplicat').endsWith('ply'),
+    'should transform plicat$ into ply'
+  )
 
-  t.notOk(/at$/.test(stemmer('surat')), 'should drop at$')
+  t.notOk(stemmer('surat').endsWith('at'), 'should drop at$')
 
-  t.notOk(/ment$/.test(stemmer('tanglement')), 'should drop ment$')
+  t.notOk(stemmer('tanglement').endsWith('ment'), 'should drop ment$')
 
-  t.notOk(/ent$/.test(stemmer('temperament')), 'should drop ent$')
+  t.notOk(stemmer('temperament').endsWith('ent'), 'should drop ent$')
 
-  t.notOk(/ant$/.test(stemmer('tenant')), 'should drop ant$')
+  t.notOk(stemmer('tenant').endsWith('ant'), 'should drop ant$')
 
-  t.ok(/rib$/.test(stemmer('transcript')), 'should transform ript$ into rib')
+  t.ok(stemmer('transcript').endsWith('rib'), 'should transform ript$ into rib')
 
-  t.ok(/orb$/.test(stemmer('absorptance')), 'should transform orpt$ into orb')
+  t.ok(
+    stemmer('absorptance').endsWith('orb'),
+    'should transform orpt$ into orb'
+  )
 
-  t.ok(/duc$/.test(stemmer('aeroduct')), 'should transform duct$ into duc')
+  t.ok(stemmer('aeroduct').endsWith('duc'), 'should transform duct$ into duc')
 
-  t.ok(/sum$/.test(stemmer('consumpt')), 'should transform sumpt$ into sum')
+  t.ok(stemmer('consumpt').endsWith('sum'), 'should transform sumpt$ into sum')
 
-  t.ok(/ceiv$/.test(stemmer('discept')), 'should transform cept$ into ceiv')
+  t.ok(stemmer('discept').endsWith('ceiv'), 'should transform cept$ into ceiv')
 
-  t.ok(/olv$/.test(stemmer('absolute')), 'should transform olut$ into olv')
+  t.ok(stemmer('absolute').endsWith('olv'), 'should transform olut$ into olv')
 
-  t.ok(/sist$/.test(stemmer('fantasist')), 'should protect sist$')
+  t.ok(stemmer('fantasist').endsWith('sist'), 'should protect sist$')
 
-  t.notOk(/ist$/.test(stemmer('fashionist')), 'should drop ist$')
+  t.notOk(stemmer('fashionist').endsWith('ist'), 'should drop ist$')
 
   t.ok(/[^t]t$/.test(stemmer('forebitt')), 'should transform tt$ into t')
 
-  t.notOk(/iqu$/.test(stemmer('antiquity')), 'should drop iqu$')
+  t.notOk(stemmer('antiquity').endsWith('iqu'), 'should drop iqu$')
 
-  t.ok(/og$/.test(stemmer('trialogue')), 'should transform ogu$ into og')
+  t.ok(stemmer('trialogue').endsWith('og'), 'should transform ogu$ into og')
 
   // Untestable, although the `j` test tests this also.
   // 'should transform siv$ into j'
 
-  t.ok(/eiv$/.test(stemmer('apperceive')), 'should protect eiv$')
+  t.ok(stemmer('apperceive').endsWith('eiv'), 'should protect eiv$')
 
-  t.notOk(/iv$/.test(stemmer('leitmotiv')), 'should drop iv$')
+  t.notOk(stemmer('leitmotiv').endsWith('iv'), 'should drop iv$')
 
-  t.ok(/bl$/.test(stemmer('amble')), 'should transform bly$ into bl')
+  t.ok(stemmer('amble').endsWith('bl'), 'should transform bly$ into bl')
 
-  t.ok(/y$/.test(stemmer('aerily')), 'should transform ily$ into y')
+  t.ok(stemmer('aerily').endsWith('y'), 'should transform ily$ into y')
 
-  t.ok(/ply$/.test(stemmer('misapply')), 'should protect ply$')
+  t.ok(stemmer('misapply').endsWith('ply'), 'should protect ply$')
 
-  t.notOk(/ly$/.test(stemmer('miscellaneously')), 'should drop ly$')
+  t.notOk(stemmer('miscellaneously').endsWith('ly'), 'should drop ly$')
 
-  t.ok(/og$/.test(stemmer('misology')), 'should transform ogy$ into og')
+  t.ok(stemmer('misology').endsWith('og'), 'should transform ogy$ into og')
 
-  t.ok(/ph$/.test(stemmer('morphography')), 'should transform phy$ into ph')
+  t.ok(stemmer('morphography').endsWith('ph'), 'should transform phy$ into ph')
 
-  t.ok(/om$/.test(stemmer('neurotomy')), 'should transform omy$ into om')
+  t.ok(stemmer('neurotomy').endsWith('om'), 'should transform omy$ into om')
 
-  t.ok(/op$/.test(stemmer('otoscopy')), 'should transform opy$ into op')
+  t.ok(stemmer('otoscopy').endsWith('op'), 'should transform opy$ into op')
 
-  t.notOk(/ity$/.test(stemmer('outcity')), 'should drop ity$')
+  t.notOk(stemmer('outcity').endsWith('ity'), 'should drop ity$')
 
-  t.notOk(/ety$/.test(stemmer('peripety')), 'should drop ety$')
+  t.notOk(stemmer('peripety').endsWith('ety'), 'should drop ety$')
 
-  t.ok(/l$/.test(stemmer('realty')), 'should transform lty$ into l')
+  t.ok(stemmer('realty').endsWith('l'), 'should transform lty$ into l')
 
-  t.notOk(/istry$/.test(stemmer('registry')), 'should drop istry$')
+  t.notOk(stemmer('registry').endsWith('istry'), 'should drop istry$')
 
-  t.notOk(/ary$/.test(stemmer('repetitionary')), 'should drop ary$')
+  t.notOk(stemmer('repetitionary').endsWith('ary'), 'should drop ary$')
 
-  t.notOk(/ory$/.test(stemmer('repository')), 'should drop ory$')
+  t.notOk(stemmer('repository').endsWith('ory'), 'should drop ory$')
 
-  t.notOk(/ify$/.test(stemmer('requalify')), 'should drop ify$')
+  t.notOk(stemmer('requalify').endsWith('ify'), 'should drop ify$')
 
-  t.ok(/nt$/.test(stemmer('bouncy')), 'should transform ncy$ into nt')
+  t.ok(stemmer('bouncy').endsWith('nt'), 'should transform ncy$ into nt')
 
-  t.notOk(/acy$/.test(stemmer('retiracy')), 'should drop acy$')
+  t.notOk(stemmer('retiracy').endsWith('acy'), 'should drop acy$')
 
-  t.notOk(/iz$/.test(stemmer('showbiz')), 'should drop iz$')
+  t.notOk(stemmer('showbiz').endsWith('iz'), 'should drop iz$')
 
-  t.ok(/ys$/.test(stemmer('agryze')), 'should transform yz$ into ys')
+  t.ok(stemmer('agryze').endsWith('ys'), 'should transform yz$ into ys')
 
   t.end()
 })
 
-test('cli', function(t) {
+test('cli', function (t) {
   var input = new PassThrough()
-  var version = ['-v', '--version']
-  var help = ['-h', '--help']
 
   t.plan(7)
 
-  exec('./cli.js considerations', function(err, stdout, stderr) {
-    t.deepEqual([err, stdout, stderr], [null, 'consid\n', ''], 'one')
+  exec('./cli.js considerations', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, 'consid\n', ''], 'one')
   })
 
-  exec('./cli.js detestable vileness', function(err, stdout, stderr) {
-    t.deepEqual([err, stdout, stderr], [null, 'detest vil\n', ''], 'two')
+  exec('./cli.js detestable vileness', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, 'detest vil\n', ''], 'two')
   })
 
-  var subprocess = exec('./cli.js', function(err, stdout, stderr) {
-    t.deepEqual([err, stdout, stderr], [null, 'detest vil\n', ''], 'stdin')
+  var subprocess = exec('./cli.js', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, 'detest vil\n', ''], 'stdin')
   })
 
   input.pipe(subprocess.stdin)
   input.write('detestable')
-  setImmediate(function() {
+  setImmediate(function () {
     input.end(' vileness')
   })
 
-  help.forEach(function(flag) {
-    exec('./cli.js ' + flag, function(err, stdout, stderr) {
-      t.deepEqual(
-        [err, /\sUsage: lancaster-stemmer/.test(stdout), stderr],
-        [null, true, ''],
-        flag
-      )
-    })
+  exec('./cli.js -h', function (error, stdout, stderr) {
+    t.deepEqual(
+      [error, /\sUsage: lancaster-stemmer/.test(stdout), stderr],
+      [null, true, ''],
+      '-h'
+    )
+  })
+  exec('./cli.js --help', function (error, stdout, stderr) {
+    t.deepEqual(
+      [error, /\sUsage: lancaster-stemmer/.test(stdout), stderr],
+      [null, true, ''],
+      '--help'
+    )
   })
 
-  version.forEach(function(flag) {
-    exec('./cli.js ' + flag, function(err, stdout, stderr) {
-      t.deepEqual([err, stdout, stderr], [null, pack.version + '\n', ''], flag)
-    })
+  exec('./cli.js -v', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, pack.version + '\n', ''], '-v')
+  })
+  exec('./cli.js --version', function (error, stdout, stderr) {
+    t.deepEqual(
+      [error, stdout, stderr],
+      [null, pack.version + '\n', ''],
+      '--version'
+    )
   })
 })
