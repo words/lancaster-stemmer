@@ -1,8 +1,6 @@
-'use strict'
-
 /* eslint-env browser */
 
-var lancasterStemmer = require('lancaster-stemmer')
+import {lancasterStemmer} from 'lancaster-stemmer'
 
 var $input = document.querySelector('input')
 var $output = document.querySelector('output')
