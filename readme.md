@@ -74,9 +74,9 @@ detest vil
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/words/lancaster-stemmer.svg
+[build-badge]: https://github.com/words/lancaster-stemmer/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/words/lancaster-stemmer
+[build]: https://github.com/words/lancaster-stemmer/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/words/lancaster-stemmer.svg
 
