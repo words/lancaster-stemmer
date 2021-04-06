@@ -1,7 +1,5 @@
 'use strict'
 
-module.exports = lancasterStemmer
-
 var stop = -1
 var intact = 0
 var cont = 1
@@ -165,7 +163,7 @@ var rules = {
   ]
 }
 
-function lancasterStemmer(value) {
+export function lancasterStemmer(value) {
   return applyRules(String(value).toLowerCase(), true)
 }
 
