@@ -170,10 +170,12 @@ const rules = {
 }
 
 /**
- * Lancaster stemming algorithm
+ * Get the stem from a given value.
  *
  * @param {string} value
+ *   Value to stem.
  * @returns {string}
+ *   Stem for `value`.
  */
 export function lancasterStemmer(value) {
   return applyRules(String(value).toLowerCase(), true)
