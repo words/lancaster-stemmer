@@ -6,7 +6,7 @@ import test from 'tape'
 import {lancasterStemmer as m} from './index.js'
 
 /** @type {Object.<string, unknown>} */
-var pack = JSON.parse(
+const pack = JSON.parse(
   String(fs.readFileSync(new URL('package.json', import.meta.url)))
 )
 
@@ -67,26 +67,26 @@ test('api', function (t) {
 
   t.ok(m('basij').endsWith('id'), 'should transform ij$ into id')
 
-  // sion > j, fuj > fus.
+  // Sion > j, fuj > fus.
   t.ok(m('affusion').endsWith('fus'), 'should transform fuj$ into fus')
 
-  // sion > j, uj > ud.
+  // Sion > j, uj > ud.
   t.ok(m('collusion').endsWith('ud'), 'should transform uj$ into ud')
 
-  // sion > j, oj > od.
+  // Sion > j, oj > od.
   t.ok(m('corrosion').endsWith('od'), 'should transform oj$ into od')
 
-  // sion > j, hej > her.
+  // Sion > j, hej > her.
   t.ok(m('adhesion').endsWith('her'), 'should transform hej$ into her')
 
-  // sion > j, verj > vert.
+  // Sion > j, verj > vert.
   t.ok(m('version').endsWith('vert'), 'should transform verj$ into vert')
 
-  // sion > j, misj > mit.
+  // Sion > j, misj > mit.
   // For some unknown reason the original code returns `misj`.
   t.ok(m('mission').endsWith('mit'), 'should transform misj$ into mit')
 
-  // sion > j, nj > nd.
+  // Sion > j, nj > nd.
   t.ok(m('comprehension').endsWith('nd'), 'should transform nj$ into nd')
 
   t.ok(m('svaraj').endsWith('s'), 'should transform j$ into s')
@@ -261,7 +261,7 @@ test('api', function (t) {
 })
 
 test('cli', function (t) {
-  var input = new PassThrough()
+  const input = new PassThrough()
 
   t.plan(7)
 
@@ -273,7 +273,7 @@ test('cli', function (t) {
     t.deepEqual([error, stdout, stderr], [null, 'detest vil\n', ''], 'two')
   })
 
-  var subprocess = exec('./cli.js', function (error, stdout, stderr) {
+  const subprocess = exec('./cli.js', function (error, stdout, stderr) {
     t.deepEqual([error, stdout, stderr], [null, 'detest vil\n', ''], 'stdin')
   })
 

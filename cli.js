@@ -5,10 +5,10 @@ import process from 'node:process'
 import {lancasterStemmer} from './index.js'
 
 /** @type {Object.<string, unknown>} */
-var pack = JSON.parse(
+const pack = JSON.parse(
   String(fs.readFileSync(new URL('package.json', import.meta.url)))
 )
-var argv = process.argv.slice(2)
+const argv = process.argv.slice(2)
 
 if (argv.includes('--help') || argv.includes('-h')) {
   console.log(help())

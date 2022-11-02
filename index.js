@@ -1,8 +1,8 @@
-var stop = -1
-var intact = 0
-var cont = 1
-var protect = 2
-var vowels = /[aeiouy]/
+const stop = -1
+const intact = 0
+const cont = 1
+const protect = 2
+const vowels = /[aeiouy]/
 
 /**
  * @typedef {Object} RuleSet
@@ -11,7 +11,7 @@ var vowels = /[aeiouy]/
  * @property {number} type
  */
 
-var rules = {
+const rules = {
   a: [
     {match: 'ia', replacement: '', type: intact},
     {match: 'a', replacement: '', type: intact}
@@ -185,27 +185,21 @@ export function lancasterStemmer(value) {
  */
 function applyRules(value, isIntact) {
   /** @type {Array.<RuleSet>} */
-  var ruleset = rules[value.charAt(value.length - 1)]
-  var index = -1
-  /** @type {number} */
-  var breakpoint
-  /** @type {RuleSet} */
-  var rule
-  /** @type {string} */
-  var next
+  const ruleset = rules[value.charAt(value.length - 1)]
+  let index = -1
 
   if (!ruleset) {
     return value
   }
 
   while (++index < ruleset.length) {
-    rule = ruleset[index]
+    const rule = ruleset[index]
 
     if (!isIntact && rule.type === intact) {
       continue
     }
 
-    breakpoint = value.length - rule.match.length
+    const breakpoint = value.length - rule.match.length
 
     if (breakpoint < 0 || value.slice(breakpoint) !== rule.match) {
       continue
@@ -215,7 +209,7 @@ function applyRules(value, isIntact) {
       return value
     }
 
-    next = value.slice(0, breakpoint) + rule.replacement
+    const next = value.slice(0, breakpoint) + rule.replacement
 
     if (!acceptable(next)) {
       continue
