@@ -1,5 +1,3 @@
-'use strict'
-
 var stop = -1
 var intact = 0
 var cont = 1
