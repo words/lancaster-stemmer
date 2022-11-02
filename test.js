@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict'
 import {exec} from 'node:child_process'
 import fs from 'node:fs'
 import {URL} from 'node:url'
@@ -5,7 +6,7 @@ import {PassThrough} from 'node:stream'
 import test from 'tape'
 import {lancasterStemmer as m} from './index.js'
 
-/** @type {Object.<string, unknown>} */
+/** @type {Record<string, unknown>} */
 const pack = JSON.parse(
   String(fs.readFileSync(new URL('package.json', import.meta.url)))
 )
@@ -277,6 +278,7 @@ test('cli', function (t) {
     t.deepEqual([error, stdout, stderr], [null, 'detest vil\n', ''], 'stdin')
   })
 
+  assert(subprocess.stdin, 'expected `stdin` on child process')
   input.pipe(subprocess.stdin)
   input.write('detestable')
   setImmediate(function () {

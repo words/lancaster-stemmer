@@ -11,6 +11,7 @@ const vowels = /[aeiouy]/
  * @property {number} type
  */
 
+/** @type {Record<string, Array<RuleSet>>} */
 const rules = {
   a: [
     {match: 'ia', replacement: '', type: intact},
@@ -184,7 +185,7 @@ export function lancasterStemmer(value) {
  * @returns {string}
  */
 function applyRules(value, isIntact) {
-  /** @type {Array.<RuleSet>} */
+  /** @type {Array<RuleSet>} */
   const ruleset = rules[value.charAt(value.length - 1)]
   let index = -1
 
