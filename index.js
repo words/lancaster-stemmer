@@ -2,6 +2,7 @@ const stop = -1
 const intact = 0
 const cont = 1
 const protect = 2
+const contint = 3
 const vowels = /[aeiouy]/
 
 /**
@@ -116,8 +117,8 @@ const rules = {
     {match: 'ss', replacement: '', type: protect},
     {match: 'ous', replacement: '', type: cont},
     {match: 'us', replacement: '', type: intact},
-    {match: 's', replacement: '', type: cont},
-    {match: 's', replacement: '', type: stop}
+    {match: 's', replacement: '', type: contint},
+    {match: 's', replacement: 's', type: stop}
   ],
   t: [
     {match: 'plicat', replacement: 'ply', type: stop},
@@ -198,7 +199,7 @@ function applyRules(value, isIntact) {
   while (++index < ruleset.length) {
     const rule = ruleset[index]
 
-    if (!isIntact && rule.type === intact) {
+    if (!isIntact && (rule.type === intact || rule.type === contint)) {
       continue
     }
 
@@ -218,7 +219,7 @@ function applyRules(value, isIntact) {
       continue
     }
 
-    if (rule.type === cont) {
+    if (rule.type === cont || rule.type === contint) {
       return applyRules(next, false)
     }
 

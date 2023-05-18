@@ -184,6 +184,9 @@ test('api', function () {
 
   assert.ok(!m('abacs').endsWith('s'), 'should drop s$')
 
+  // `ation$` is also removed
+  assert.ok(m('compensation').endsWith('s'), 'should drop s$ only when intact')
+
   assert.ok(m('supplicat').endsWith('ply'), 'should transform plicat$ into ply')
 
   assert.ok(!m('surat').endsWith('at'), 'should drop at$')
