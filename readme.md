@@ -32,13 +32,13 @@ into a shorter version (a stem), which can then be compared to other stems
 
 ## When should I use this?
 
-You’re probably dealing with natural language, and know you need this, if
+You’re probably dealing with natural language and know you need this if
 you’re here!
 
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 14.14+, 16.0+), install with [npm][]:
+In Node.js (version 16.0+), install with [npm][]:
 
 ```sh
 npm install lancaster-stemmer
@@ -75,16 +75,17 @@ lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc') // => true
 
 ## API
 
-This package exports the identifier `lancasterStemmer`.
+This package exports the identifier [`lancasterStemmer`][api-lancasterstemmer].
 There is no default export.
 
 ### `lancasterStemmer(value)`
 
 Get the stem from a given value.
 
-###### `value`
+###### Parameters
 
-Value to stem (`string`, required).
+*   `value`(`string`, required)
+    — value to stem
 
 ##### Returns
 
@@ -121,7 +122,7 @@ It exports no additional types.
 ## Compatibility
 
 This package is at least compatible with all maintained versions of Node.js.
-As of now, that is Node.js 14.14+ and 16.0+.
+As of now, that is Node.js 16.0+.
 It also works in Deno and modern browsers.
 
 ## Related
@@ -185,3 +186,5 @@ This package is safe.
 [author]: https://wooorm.com
 
 [source]: https://web.archive.org/web/20150215002618/http://www.comp.lancs.ac.uk:80/computing/research/stemming/index.htm
+
+[api-lancasterstemmer]: #lancasterstemmervalue
