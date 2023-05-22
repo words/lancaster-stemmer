@@ -14,7 +14,7 @@
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`lancasterStemmer(value)`](#lancasterstemmervalue)
+    *   [`lancasterStemmer(value, options?)`](#lancasterstemmervalue)
 *   [CLI](#cli)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
@@ -78,7 +78,7 @@ lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc') // => true
 This package exports the identifier [`lancasterStemmer`][api-lancasterstemmer].
 There is no default export.
 
-### `lancasterStemmer(value)`
+### `lancasterStemmer(value, options?)`
 
 Get the stem from a given value.
 
@@ -86,6 +86,13 @@ Get the stem from a given value.
 
 *   `value`(`string`, required)
     — value to stem
+*   `options`(`object`, optional)
+    — options to use for stemmer
+
+The `options` object accepts one key, `ruleset`, with the values:
+* `1994` (default) - rules from the 1994 C implementation
+* `1990` - rules from the original paper and Pascal/Java implementations
+* `2014` - rules used in the initial version of this module
 
 ##### Returns
 
