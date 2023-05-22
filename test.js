@@ -184,9 +184,6 @@ test('api', function () {
 
   assert.ok(!m('abacs').endsWith('s'), 'should drop s$')
 
-  // `ation$` is also removed
-  assert.ok(m('compensation').endsWith('s'), 'should drop s$ only when intact')
-
   assert.ok(m('supplicat').endsWith('ply'), 'should transform plicat$ into ply')
 
   assert.ok(!m('surat').endsWith('at'), 'should drop at$')
@@ -263,6 +260,16 @@ test('api', function () {
   assert.ok(!m('showbiz').endsWith('iz'), 'should drop iz$')
 
   assert.ok(m('agryze').endsWith('ys'), 'should transform yz$ into ys')
+
+  assert.ok(
+    m('compensation', {ruleset: 'default'}).endsWith('n'),
+    'should drop s$'
+  )
+
+  assert.ok(
+    m('compensation', {ruleset: '1990'}).endsWith('s'),
+    'should protect s$ under 1990 rules'
+  )
 })
 
 test('cli', async function () {

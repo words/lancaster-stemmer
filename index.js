@@ -11,9 +11,13 @@ const vowels = /[aeiouy]/
  * @property {string} replacement
  * @property {number} type
  */
+/**
+ * @typedef {Record<string, Array<RuleSet>>} RuleCollection
+ */
 
-/** @type {Record<string, Array<RuleSet>>} */
-const rules = {
+/** @type {Record<string, RuleCollection>} */
+const ruleCollections = {}
+ruleCollections['1994'] = {
   a: [
     {match: 'ia', replacement: '', type: intact},
     {match: 'a', replacement: '', type: intact}
@@ -102,7 +106,6 @@ const rules = {
     {match: 'er', replacement: '', type: cont},
     {match: 'ear', replacement: '', type: protect},
     {match: 'ar', replacement: '', type: stop},
-    {match: 'ior', replacement: '', type: cont},
     {match: 'or', replacement: '', type: cont},
     {match: 'ur', replacement: '', type: cont},
     {match: 'rr', replacement: 'r', type: stop},
@@ -118,7 +121,7 @@ const rules = {
     {match: 'ous', replacement: '', type: cont},
     {match: 'us', replacement: '', type: intact},
     {match: 's', replacement: '', type: contint},
-    {match: 's', replacement: 's', type: stop}
+    {match: 's', replacement: '', type: stop}
   ],
   t: [
     {match: 'plicat', replacement: 'ply', type: stop},
@@ -170,24 +173,46 @@ const rules = {
   ]
 }
 
+ruleCollections['1990'] = JSON.parse(JSON.stringify(ruleCollections['1994']))
+ruleCollections['1990'].s[8].type = protect
+
+ruleCollections['2014'] = JSON.parse(JSON.stringify(ruleCollections['1994']))
+ruleCollections['2014'].s[8].type = cont
+ruleCollections['2014'].r.splice(3, 0, {
+  match: 'ior',
+  replacement: '',
+  type: cont
+})
+
+/**
+ * @typedef {Object} Options
+ * @property {string} [ruleset="1994"]
+ *   Which ruleset to use. Valid options are: "1994" "1990" "2014"
+ */
+
 /**
  * Get the stem from a given value.
  *
  * @param {string} value
  *   Value to stem.
+ * @param {Options=} options
+ *   Options to use during stemming.
  * @returns {string}
  *   Stem for `value`.
  */
-export function lancasterStemmer(value) {
-  return applyRules(String(value).toLowerCase(), true)
+export function lancasterStemmer(value, options = {}) {
+  const rules =
+    ruleCollections[options.ruleset ?? '1994'] ?? ruleCollections['1994']
+  return applyRules(String(value).toLowerCase(), true, rules)
 }
 
 /**
  * @param {string} value
  * @param {boolean} isIntact
+ * @param {RuleCollection} rules
  * @returns {string}
  */
-function applyRules(value, isIntact) {
+function applyRules(value, isIntact, rules) {
   /** @type {Array<RuleSet>} */
   const ruleset = rules[value.charAt(value.length - 1)]
   let index = -1
@@ -220,7 +245,7 @@ function applyRules(value, isIntact) {
     }
 
     if (rule.type === cont || rule.type === contint) {
-      return applyRules(next, false)
+      return applyRules(next, false, rules)
     }
 
     return next
