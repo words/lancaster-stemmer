@@ -13,5 +13,5 @@
     "target": "es2020"
   },
   "include": ["**/*.js"],
-  "exclude": ["coverage/", "lib/", "node_modules/", "index.js"]
+  "exclude": ["coverage/", "lib/", "node_modules/"]
 }

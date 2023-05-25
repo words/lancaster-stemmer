@@ -14,7 +14,9 @@
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`lancasterStemmer(value)`](#lancasterstemmervalue)
+    *   [`lancasterStemmer(value, options?)`](#lancasterstemmervalue-options)
+    *   [`Options`](#options)
+    *   [`Style`](#style)
 *   [CLI](#cli)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
@@ -78,7 +80,7 @@ lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc') // => true
 This package exports the identifier [`lancasterStemmer`][api-lancasterstemmer].
 There is no default export.
 
-### `lancasterStemmer(value)`
+### `lancasterStemmer(value, options?)`
 
 Get the stem from a given value.
 
@@ -86,10 +88,42 @@ Get the stem from a given value.
 
 *   `value`(`string`, required)
     — value to stem
+*   `options`([`Options`][api-options], optional)
+    — configuration
 
 ##### Returns
 
 Stem for `value` (`string`).
+
+### `Options`
+
+Configuration (TypeScript type).
+
+###### Fields
+
+*   `style` ([`Style`][api-style], default: `'c'`)
+    — style of algorithm
+
+### `Style`
+
+Style of algorithm (TypeScript type).
+
+There are small algorithmic differences between how the algorithm was
+implemented over the years.
+Looking at [Algorithm Implementations][algos] on the archived website,
+there are four styles available, in addition to the original paper.
+
+The only difference currently implemented in this package is whether a final
+`s` is kept before stopping (`paper`) or dropped before stopping (`c`).
+
+###### Values
+
+*   `'c'`
+    — rules from the ANSI C (Stark, 1994) and Perl (Taffet, 2001)
+    implementations (`compensation` -> `compen`)
+*   `'paper'`
+    — rules from the original paper (1990), and Pascal (Paice/Husk) and
+    Java (O’Neill, 2000) implementations (`compensation` -> `compens`)
 
 ## CLI
 
@@ -117,7 +151,8 @@ detest vil
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports no additional types.
+It exports the additional types [`Options`][api-options] and
+[`Style`][api-style].
 
 ## Compatibility
 
@@ -185,6 +220,12 @@ This package is safe.
 
 [author]: https://wooorm.com
 
-[source]: https://web.archive.org/web/20150215002618/http://www.comp.lancs.ac.uk:80/computing/research/stemming/index.htm
+[source]: https://web.archive.org/web/20150215002618/http://www.comp.lancs.ac.uk/computing/research/stemming/index.htm
 
-[api-lancasterstemmer]: #lancasterstemmervalue
+[algos]: https://web.archive.org/web/20060819173645/http://www.comp.lancs.ac.uk/computing/research/stemming/Links/implementations.htm
+
+[api-lancasterstemmer]: #lancasterstemmervalue-options
+
+[api-options]: #options
+
+[api-style]: #style

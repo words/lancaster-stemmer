@@ -1,18 +1,47 @@
-const stop = -1
-const intact = 0
-const cont = 1
-const protect = 2
-const vowels = /[aeiouy]/
-
 /**
  * @typedef {Object} RuleSet
  * @property {string} match
  * @property {string} replacement
  * @property {number} type
+ *
+ * @typedef {Record<string, Array<RuleSet>>} RuleCollection
+ *
+ * @typedef {'c' | 'paper'} Style
+ *   Style of algorithm.
+ *
+ *   There are small algorithmic differences between how the algorithm was
+ *   implemented over the years.
+ *   Looking at [Algorithm Implementations][algos] on the archived website,
+ *   there are four styles available, in addition to the original paper.
+ *
+ *   The only difference currently implemented in this package is whether a
+ *   final `s` is kept before stopping (`paper`) or dropped before stopping
+ *   (`c`).
+ *
+ *   ###### Values
+ *
+ *   *   `'c'`
+ *       — rules from the ANSI C (Stark, 1994) and Perl (Taffet, 2001)
+ *       implementations (`compensation` -> `compen`)
+ *   *   `'paper'`
+ *       — rules from the original paper (1990), and Pascal (Paice/Husk) and
+ *       Java (O’Neill, 2000) implementations (`compensation` -> `compens`)
+ *
+ * @typedef Options
+ *   Configuration.
+ * @property {Style | null | undefined} [style='c']
+ *   Style of algorithm (default: `'c'`).
  */
 
-/** @type {Record<string, Array<RuleSet>>} */
-const rules = {
+const stop = -1
+const intact = 0
+const cont = 1
+const protect = 2
+const contint = 3
+const vowels = /[aeiouy]/
+
+/** @type {RuleCollection} */
+const rulesPaper = {
   a: [
     {match: 'ia', replacement: '', type: intact},
     {match: 'a', replacement: '', type: intact}
@@ -101,7 +130,6 @@ const rules = {
     {match: 'er', replacement: '', type: cont},
     {match: 'ear', replacement: '', type: protect},
     {match: 'ar', replacement: '', type: stop},
-    {match: 'ior', replacement: '', type: cont},
     {match: 'or', replacement: '', type: cont},
     {match: 'ur', replacement: '', type: cont},
     {match: 'rr', replacement: 'r', type: stop},
@@ -116,8 +144,10 @@ const rules = {
     {match: 'ss', replacement: '', type: protect},
     {match: 'ous', replacement: '', type: cont},
     {match: 'us', replacement: '', type: intact},
-    {match: 's', replacement: '', type: cont},
-    {match: 's', replacement: '', type: stop}
+    {match: 's', replacement: '', type: contint},
+    // Note: this following rule is mutated for the C set, be careful when
+    // touching it.
+    {match: 's', replacement: '', type: protect}
   ],
   t: [
     {match: 'plicat', replacement: 'ply', type: stop},
@@ -169,25 +199,38 @@ const rules = {
   ]
 }
 
+/** @type {RuleCollection} */
+const rulesC = JSON.parse(JSON.stringify(rulesPaper))
+rulesC.s[8].type = stop
+
 /**
  * Get the stem from a given value.
  *
  * @param {string} value
  *   Value to stem.
+ * @param {Options | null | undefined} [options]
+ *   Configuration.
  * @returns {string}
  *   Stem for `value`.
  */
-export function lancasterStemmer(value) {
-  return applyRules(String(value).toLowerCase(), true)
+export function lancasterStemmer(value, options) {
+  const settings = options || {}
+  const style = settings.style
+
+  return applyRules(
+    String(value).toLowerCase(),
+    true,
+    style === 'paper' ? rulesPaper : rulesC
+  )
 }
 
 /**
  * @param {string} value
  * @param {boolean} isIntact
+ * @param {RuleCollection} rules
  * @returns {string}
  */
-function applyRules(value, isIntact) {
-  /** @type {Array<RuleSet>} */
+function applyRules(value, isIntact, rules) {
   const ruleset = rules[value.charAt(value.length - 1)]
   let index = -1
 
@@ -198,7 +241,7 @@ function applyRules(value, isIntact) {
   while (++index < ruleset.length) {
     const rule = ruleset[index]
 
-    if (!isIntact && rule.type === intact) {
+    if (!isIntact && (rule.type === intact || rule.type === contint)) {
       continue
     }
 
@@ -218,8 +261,8 @@ function applyRules(value, isIntact) {
       continue
     }
 
-    if (rule.type === cont) {
-      return applyRules(next, false)
+    if (rule.type === cont || rule.type === contint) {
+      return applyRules(next, false, rules)
     }
 
     return next

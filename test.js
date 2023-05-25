@@ -260,6 +260,20 @@ test('api', function () {
   assert.ok(!m('showbiz').endsWith('iz'), 'should drop iz$')
 
   assert.ok(m('agryze').endsWith('ys'), 'should transform yz$ into ys')
+
+  assert.equal(
+    m('compensation', {style: 'paper'}),
+    'compens',
+    "should support `style: 'paper'`"
+  )
+
+  assert.equal(
+    m('compensation', {style: 'c'}),
+    'compen',
+    "should support `style: 'c'`"
+  )
+
+  assert.equal(m('compensation'), 'compen', "should default to `style: '1994'`")
 })
 
 test('cli', async function () {
