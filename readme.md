@@ -40,7 +40,7 @@ you’re here!
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install lancaster-stemmer
@@ -65,14 +65,14 @@ In browsers with [`esm.sh`][esmsh]:
 ```js
 import {lancasterStemmer} from 'lancaster-stemmer'
 
-lancasterStemmer('considerations') // => 'consid'
-lancasterStemmer('detestable') // => 'detest'
-lancasterStemmer('vileness') // => 'vil'
-lancasterStemmer('giggling') // => 'giggl'
-lancasterStemmer('anxious') // => 'anxy'
+console.log(lancasterStemmer('considerations')) // => 'consid'
+console.log(lancasterStemmer('detestable')) // => 'detest'
+console.log(lancasterStemmer('vileness')) // => 'vil'
+console.log(lancasterStemmer('giggling')) // => 'giggl'
+console.log(lancasterStemmer('anxious')) // => 'anxy'
 
 // Case insensitive
-lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc') // => true
+console.log(lancasterStemmer('analytic') === lancasterStemmer('AnAlYtIc')) // => true
 ```
 
 ## API
@@ -156,9 +156,13 @@ It exports the additional types [`Options`][api-options] and
 
 ## Compatibility
 
-This package is at least compatible with all maintained versions of Node.js.
-As of now, that is Node.js 16.0+.
-It also works in Deno and modern browsers.
+Projects maintained by the unified collective are compatible with maintained
+versions of Node.js.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `lancaster-stemmer@^2`,
+compatible with Node.js 12.
 
 ## Related
 
