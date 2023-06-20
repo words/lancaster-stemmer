@@ -13,7 +13,13 @@ const pack = JSON.parse(
   String(fs.readFileSync(new URL('package.json', import.meta.url)))
 )
 
-test('api', function () {
+test('api', async function () {
+  assert.deepEqual(
+    Object.keys(await import('./index.js')).sort(),
+    ['lancasterStemmer'],
+    'should expose the public api'
+  )
+
   assert.equal(m('analytic'), m('AnAlYtIc'), 'should be case insensitive')
 
   assert.equal(m(''), '', 'should not fail on empy inputs')
