@@ -88,7 +88,7 @@ Get the stem from a given value.
 
 *   `value`(`string`, required)
     — value to stem
-*   `options`([`Options`][api-options], optional)
+*   `options`([`Options`][api-options], default: `{}`)
     — configuration
 
 ##### Returns

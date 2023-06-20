@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict'
 import cp from 'node:child_process'
 import fs from 'node:fs'
-import {URL} from 'node:url'
 import util from 'node:util'
 import {PassThrough} from 'node:stream'
 import test from 'node:test'

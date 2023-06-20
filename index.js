@@ -1,10 +1,15 @@
 /**
- * @typedef {Object} RuleSet
+ * @typedef Options
+ *   Configuration.
+ * @property {Style | null | undefined} [style='c']
+ *   Style of algorithm (default: `'c'`).
+ *
+ * @typedef {Record<string, Array<RuleSet>>} RuleCollection
+ *
+ * @typedef RuleSet
  * @property {string} match
  * @property {string} replacement
  * @property {number} type
- *
- * @typedef {Record<string, Array<RuleSet>>} RuleCollection
  *
  * @typedef {'c' | 'paper'} Style
  *   Style of algorithm.
@@ -26,11 +31,6 @@
  *   *   `'paper'`
  *       — rules from the original paper (1990), and Pascal (Paice/Husk) and
  *       Java (O’Neill, 2000) implementations (`compensation` -> `compens`)
- *
- * @typedef Options
- *   Configuration.
- * @property {Style | null | undefined} [style='c']
- *   Style of algorithm (default: `'c'`).
  */
 
 const stop = -1
@@ -208,8 +208,8 @@ rulesC.s[8].type = stop
  *
  * @param {string} value
  *   Value to stem.
- * @param {Options | null | undefined} [options]
- *   Configuration.
+ * @param {Options | null | undefined} [options={}]
+ *   Configuration (default: `{}`).
  * @returns {string}
  *   Stem for `value`.
  */

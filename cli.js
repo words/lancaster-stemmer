@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import {URL} from 'node:url'
 import fs from 'node:fs'
 import process from 'node:process'
+import {URL} from 'node:url'
 import {lancasterStemmer} from './index.js'
 
 /** @type {Record<string, unknown>} */
@@ -30,7 +30,9 @@ if (argv.includes('--help') || argv.includes('-h')) {
 function stem(values) {
   return values
     .split(/\s+/g)
-    .map((d) => lancasterStemmer(d))
+    .map(function (d) {
+      return lancasterStemmer(d)
+    })
     .join(' ')
 }
 
